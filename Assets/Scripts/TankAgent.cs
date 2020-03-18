@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using MLAgents;
 using System.Collections;
 
@@ -25,7 +25,7 @@ public class TankAgent : Agent
     private bool shooting;
 
     private int health;
-    public const int maxHealth = 100;
+    public const int maxHealth = 30;
     public const float maxPower = 100;
     public const float minPower = 1;
 
@@ -81,18 +81,6 @@ public class TankAgent : Agent
         {
 
             Vector3 newPos = new Vector3(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
-
-            if (float.IsNaN(newPos.y))
-            {
-
-                Debug.Log("ElapsedTime " + elapse_time);
-                Debug.Log("DeltaTime" + Time.deltaTime);
-                Debug.Log("hitted " + projectileScript.hitted());
-                Debug.Log("vector " + new Vector3(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime));
-                Debug.Log("Pos " + projectileTransform.position);
-
-                Debug.Log(" ");
-            }
             projectileTransform.Translate(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
 
             elapse_time += Time.deltaTime;
@@ -107,8 +95,7 @@ public class TankAgent : Agent
             float dist = Vector3.Distance(target.GetComponent<Transform>().position, projectileTransform.position);
 
             //Bigger distance less reward
-            AddReward((1 / dist) - 0.7f);
-
+            AddReward(1 - dist);
         }
 
         Destroy(projectileObject);
@@ -175,13 +162,14 @@ public class TankAgent : Agent
             if (!shooting)
             {
                 shoot();
-             
+            }else{
+                 AddReward(-1f / maxStep);
             }
         }
 
 
-        // Apply a tiny negative reward every step to encourage action
-        if (maxStep > 0)
+        // Apply a tiny negative reward every step to encourage action if not shooting
+        if (!shooting)
             AddReward(-1f / maxStep);
     }
 
@@ -278,12 +266,20 @@ public class TankAgent : Agent
 
     public override void CollectObservations()
     {
-        // Whether the tank is shooting (1 float = 1 value)
+        //Whether the tank is shooting (1 float = 1 value)
         AddVectorObs(isShooting());
+    
+        //Shooting power (1 float = 1 value)
+        AddVectorObs((power - minPower) / (maxPower - minPower));
 
+        //Shooting angle (1 float = 1 value)
+        AddVectorObs((angle - minAngle) / (maxAngle - minAngle));
+
+        //Tank position relative to parent object (1 Vector3 = 3 values)
+        AddVectorObs(transform.localPosition.normalized);
 
         // Distance to the target (1 float = 1 value)
-        AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
+        //AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
 
         // Direction to target(1 Vector3 = 3 values)
         AddVectorObs((target.transform.position - transform.position).normalized);
@@ -291,8 +287,7 @@ public class TankAgent : Agent
         // Direction tank is facing (1 Vector3 = 3 values)
         AddVectorObs(transform.forward);
 
-
-        // 1 + 1 + 3 + 3 = 8 total values
+        // 1 + 1 + 1 + 3  + 3 + 3 = 12 total values
     }
 
     public bool isDead()
@@ -305,15 +300,14 @@ public class TankAgent : Agent
 
         if (health <= 0)
         {
-            AddReward(-2f);
-            AgentReset();
+            AddReward(-1f);
+            Done();
+            target.Done();
         }
         else
         {
 
-            // Request a decision every 5 steps. RequestDecision() automatically calls RequestAction(),
-            // but for the steps in between, we need to call it explicitly to take action using the results
-            // of the previous decision
+            // Request a decision every 5 steps
             if (GetStepCount() % 5 == 0)
             {
                 RequestDecision();
@@ -330,7 +324,7 @@ public class TankAgent : Agent
     private void takeDamage()
     {
         health -= 10;
-        AddReward(-1f);
+        AddReward(-0.5f);
     }
 
     private void OnTriggerEnter(Collider collision)

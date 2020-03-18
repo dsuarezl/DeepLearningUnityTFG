@@ -20,9 +20,11 @@ public class TankArea : MonoBehaviour
         max = this.GetComponent<Renderer>().bounds.max;
         ResetArea();
     }
-    public void ResetArea(){
+    public void ResetArea() {
             placeTank(tank1,tank2);
             placeTank(tank2,tank1);
+            tank1.resetStats();
+            tank2.resetStats();
     }
 
     public void placeTank(TankAgent tank, TankAgent target){
@@ -38,6 +40,7 @@ public class TankArea : MonoBehaviour
         while(Vector3.Distance(tank.transform.position,target.transform.position) < minDistance && count < 30){
             tank.transform.position = randomPosition();
             count++;
+     
         }
 
       //  Debug.Log(Vector3.Distance(tank.transform.position,target.transform.position));
