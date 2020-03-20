@@ -61,9 +61,11 @@ public class TankAgent : Agent
     {
 
         projectileObject = Instantiate(ProjectilePrefab) as GameObject;
+
         Transform projectileTransform = projectileObject.GetComponent<Transform>();
 
         ProjectileScript projectileScript = projectileObject.GetComponent<ProjectileScript>();
+        projectileScript.setTarget(target);
 
         shooting = true;
 
@@ -92,10 +94,12 @@ public class TankAgent : Agent
 
         if (projectileScript.hitted())
         {
-            float dist = Vector3.Distance(target.GetComponent<Transform>().position, projectileTransform.position);
 
-            //Bigger distance less reward
-            AddReward(1 - dist);
+            if(!projectileScript.hittedTarget()){
+                AddReward(-0.5f);
+            }else{
+                AddReward(1);
+            }
         }
 
         Destroy(projectileObject);

@@ -12,6 +12,7 @@ ScriptsOnlyBuild:
     - MLAgents.Sensor.RayPerceptionSensorComponent3D
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
+    - UnityEditor.TestTools.TestRunner.TestListCacheData
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -58,10 +59,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 10750}
     - Class: 114
       Script: {instanceID: 10816}
-    - Class: 114
-      Script: {instanceID: 10860}
-    - Class: 114
-      Script: {instanceID: 11022}
     - Class: 114
       Script: {instanceID: 11390}
     - Class: 115
