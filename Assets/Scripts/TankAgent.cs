@@ -1,6 +1,8 @@
 ﻿﻿using UnityEngine;
-using MLAgents;
 using System.Collections;
+using MLAgents;
+using MLAgents.Sensors;
+using MLAgents.SideChannels;
 
 
 public class TankAgent : Agent
@@ -26,7 +28,7 @@ public class TankAgent : Agent
 
     private int health;
     public const int maxHealth = 30;
-    public const float maxPower = 100;
+    public const float maxPower = 300;
     public const float minPower = 1;
 
     public const float minAngle = 1;
@@ -35,9 +37,8 @@ public class TankAgent : Agent
 
     public TankArea area;
 
-    public override void InitializeAgent()
+    public override void Initialize()
     {
-        base.InitializeAgent();
         rb = GetComponent<Rigidbody>();
         health = maxHealth;
         dead = false;
@@ -92,22 +93,12 @@ public class TankAgent : Agent
 
         }
 
-        if (projectileScript.hitted())
-        {
-
-            if(!projectileScript.hittedTarget()){
-                AddReward(-0.5f);
-            }else{
-                AddReward(1);
-            }
-        }
-
         Destroy(projectileObject);
         shooting = false;
 
     }
 
-    public override void AgentAction(float[] vectorAction)
+    public override void OnActionReceived(float[] vectorAction)
     {
         // Convert the first action to forward movement
         float forwardAmount = 0f;
@@ -166,15 +157,13 @@ public class TankAgent : Agent
             if (!shooting)
             {
                 shoot();
-            }else{
-                 AddReward(-1f / maxStep);
             }
         }
 
 
         // Apply a tiny negative reward every step to encourage action if not shooting
-        if (!shooting)
-            AddReward(-1f / maxStep);
+       /* if (!shooting)
+            AddReward(-1f / maxStep);*/
     }
 
     public override float[] Heuristic()
@@ -246,7 +235,7 @@ public class TankAgent : Agent
     }
 
 
-    public override void AgentReset()
+    public override void OnEpisodeBegin()
     {
         resetStats();
         area.placeTank(this,target);
@@ -268,30 +257,40 @@ public class TankAgent : Agent
     }
 
 
-    public override void CollectObservations()
+    public override void CollectObservations(VectorSensor sensor)
     {
         //Whether the tank is shooting (1 float = 1 value)
-        AddVectorObs(isShooting());
+        sensor.AddObservation(isShooting());
     
         //Shooting power (1 float = 1 value)
-        AddVectorObs((power - minPower) / (maxPower - minPower));
+        sensor.AddObservation((power - minPower) / (maxPower - minPower));
 
         //Shooting angle (1 float = 1 value)
-        AddVectorObs((angle - minAngle) / (maxAngle - minAngle));
+        sensor.AddObservation((angle - minAngle) / (maxAngle - minAngle));
 
-        //Tank position relative to parent object (1 Vector3 = 3 values)
-        AddVectorObs(transform.localPosition.normalized);
+        //Tank position relative to parent object X 1 value
+
+        float minX = -area.getSizeX()/2;
+        float maxX = area.getSizeX()/2;
+
+        float minZ = -area.getSizeZ()/2;
+        float maxZ = area.getSizeZ()/2;
+
+        sensor.AddObservation((transform.localPosition.x-minX)/(maxX - minX));
+
+        //Tank position relative to parent object Z 1 value
+        sensor.AddObservation((transform.localPosition.z-minZ)/(maxZ - minZ));
 
         // Distance to the target (1 float = 1 value)
         //AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
 
         // Direction to target(1 Vector3 = 3 values)
-        AddVectorObs((target.transform.position - transform.position).normalized);
+       // AddVectorObs((target.transform.position - transform.position).normalized);
 
-        // Direction tank is facing (1 Vector3 = 3 values)
-        AddVectorObs(transform.forward);
+        // Rotation y of the tank (1 float = 1 value)
+        sensor.AddObservation(transform.rotation.y/ 360.0f);
 
-        // 1 + 1 + 1 + 3  + 3 + 3 = 12 total values
+        // 1 + 1 + 1 + 1 + 1 + 1 = 6 total values
     }
 
     public bool isDead()
@@ -299,36 +298,11 @@ public class TankAgent : Agent
         return dead;
     }
 
-    private void FixedUpdate()
-    {
-
-        if (health <= 0)
-        {
-            AddReward(-1f);
-            Done();
-            target.Done();
-        }
-        else
-        {
-
-            // Request a decision every 5 steps
-            if (GetStepCount() % 5 == 0)
-            {
-                RequestDecision();
-            }
-            else
-            {
-                RequestAction();
-            }
-        }
-
-
-    }
 
     private void takeDamage()
     {
         health -= 10;
-        AddReward(-0.5f);
+       // AddReward(-1f);
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -337,6 +311,8 @@ public class TankAgent : Agent
         if (collision.gameObject.tag == "projectile")
         {
             takeDamage();
+            if(health<=0)
+                dead =true;
         }
     }
 

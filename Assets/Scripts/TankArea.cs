@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using MLAgents;
 using System.Collections;
+using TMPro;
  
 
 public class TankArea : MonoBehaviour
@@ -11,20 +12,43 @@ public class TankArea : MonoBehaviour
     public float minDistance = 10;
     public float borderSize = 2;
 
+
+    public TextMeshPro redReward;
+
+    
+    public TextMeshPro blueReward;
+
+
     private Vector3 min;
     private Vector3 max;
+
+
+    public float getSizeX(){
+        return this.GetComponent<Renderer>().bounds.size.x;
+    }
+
+    public float getSizeZ(){
+        return this.GetComponent<Renderer>().bounds.size.z;
+    }
+ 
 
     public void Start()
     {
         min = this.GetComponent<Renderer>().bounds.min;
         max = this.GetComponent<Renderer>().bounds.max;
-        ResetArea();
+        placeTanks();
+   
+    }
+
+
+    public void placeTanks(){
+        placeTank(tank1,tank2);
+        placeTank(tank2,tank1);
     }
     public void ResetArea() {
-            placeTank(tank1,tank2);
-            placeTank(tank2,tank1);
-            tank1.resetStats();
-            tank2.resetStats();
+            
+            tank1.EndEpisode();
+            tank2.EndEpisode();
     }
 
     public void placeTank(TankAgent tank, TankAgent target){
@@ -42,9 +66,28 @@ public class TankArea : MonoBehaviour
             count++;
      
         }
-
-      //  Debug.Log(Vector3.Distance(tank.transform.position,target.transform.position));
         tank.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+    }
+
+    private void Update(){
+
+        if(tank1.isDead()){
+            tank2.SetReward(1f);
+            tank1.SetReward(-1f);
+
+
+            ResetArea();
+
+        }else if(tank2.isDead()){
+
+            tank1.SetReward(1f);
+            tank2.SetReward(-1f);
+
+            ResetArea();
+        }
+
+        redReward.SetText(tank2.GetCumulativeReward().ToString("0.00"));
+        blueReward.SetText(tank1.GetCumulativeReward().ToString("0.00"));
     }
 
     public Vector3 randomPosition(){

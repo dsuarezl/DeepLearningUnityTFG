@@ -44,12 +44,16 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>     <Compile Include="\home\daniel\Documentos\ml-agents-0.14.1\com.unity.ml-agents\Editor\AgentEditor.cs" />
-     <Compile Include="\home\daniel\Documentos\ml-agents-0.14.1\com.unity.ml-agents\Editor\BehaviorParametersEditor.cs" />
-     <Compile Include="\home\daniel\Documentos\ml-agents-0.14.1\com.unity.ml-agents\Editor\BrainParametersDrawer.cs" />
-     <Compile Include="\home\daniel\Documentos\ml-agents-0.14.1\com.unity.ml-agents\Editor\DemonstrationDrawer.cs" />
-     <Compile Include="\home\daniel\Documentos\ml-agents-0.14.1\com.unity.ml-agents\Editor\DemonstrationImporter.cs" />
-     <None Include="\home\daniel\Documentos\ml-agents-0.14.1\com.unity.ml-agents\Editor\Unity.ML-Agents.Editor.asmdef" />
+  <ItemGroup>     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\AgentEditor.cs" />
+     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\BehaviorParametersEditor.cs" />
+     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\BrainParametersDrawer.cs" />
+     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\CameraSensorComponentEditor.cs" />
+     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\DemonstrationDrawer.cs" />
+     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\DemonstrationImporter.cs" />
+     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\EditorUtilities.cs" />
+     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\RayPerceptionSensorComponentBaseEditor.cs" />
+     <Compile Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\RenderTextureSensorComponentEditor.cs" />
+     <None Include="\home\daniel\Documentos\ml-agents-master\com.unity.ml-agents\Editor\Unity.ML-Agents.Editor.asmdef" />
  <Reference Include="Barracuda">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Barracuda.dll</HintPath>
  </Reference>
@@ -258,22 +262,22 @@
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Google.Protobuf">
- <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.barracuda@0.5.0-preview/Barracuda/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
+ <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.barracuda@0.6.1-preview/Barracuda/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Burst.Unsafe">
  <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.burst@1.1.1/Unity.Burst.Unsafe.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Abstractions.TestingHelpers">
- <HintPath>/home/daniel/Documentos/ml-agents-0.14.1/com.unity.ml-agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
+ <HintPath>/home/daniel/Documentos/ml-agents-master/com.unity.ml-agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Abstractions">
- <HintPath>/home/daniel/Documentos/ml-agents-0.14.1/com.unity.ml-agents/Plugins/System.IO.Abstractions.dll</HintPath>
+ <HintPath>/home/daniel/Documentos/ml-agents-master/com.unity.ml-agents/Plugins/System.IO.Abstractions.dll</HintPath>
  </Reference>
  <Reference Include="Grpc.Core">
- <HintPath>/home/daniel/Documentos/ml-agents-0.14.1/com.unity.ml-agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
+ <HintPath>/home/daniel/Documentos/ml-agents-master/com.unity.ml-agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
  </Reference>
  <Reference Include="System.Interactive.Async">
- <HintPath>/home/daniel/Documentos/ml-agents-0.14.1/com.unity.ml-agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
+ <HintPath>/home/daniel/Documentos/ml-agents-master/com.unity.ml-agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -637,6 +641,10 @@
     <ProjectReference Include="Unity.ML-Agents.csproj">
       <Project>{D2DEC718-D0DE-44A7-E64E-181B065D95EB}</Project>
       <Name>Unity.ML-Agents</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.ML-Agents.CommunicatorObjects.csproj">
+      <Project>{4BB198BC-5D6D-B5CF-10DD-52D2E914F2EC}</Project>
+      <Name>Unity.ML-Agents.CommunicatorObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
