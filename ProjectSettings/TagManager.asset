@@ -9,6 +9,9 @@ TagManager:
   - area
   - wall
   - text
+  - blueTank
+  - redTank
+  - deadTank
   layers:
   - Default
   - TransparentFX

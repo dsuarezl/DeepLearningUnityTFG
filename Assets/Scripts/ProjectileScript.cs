@@ -5,39 +5,18 @@ using UnityEngine;
 public class ProjectileScript : MonoBehaviour
 {
 
-
-    private bool hit;
-    private bool hitTarget;
-    private TankAgent target;
+    private string targetTag;
+    private TankAgent shooter;
 
 
-    public void setTarget(TankAgent target){
-        this.target =  target;
-    }
-    
-    void awake(){
-        hit = false;
-        hitTarget = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider col)
     {
-        
-      
-        hit = true;
-        if(other.gameObject.tag == "tank" && other.GetComponent<TankAgent>() == target){
-            hitTarget = true;
+        if(col.gameObject.tag == "redTank" || col.gameObject.tag == "blueTank"){
+            col.gameObject.GetComponent<TankAgent>().takeDamage();
         }
 
+        Destroy(this.gameObject);
         
-    }
-
-    public bool hitted(){
-        return hit;
-    }
-
-    public bool hittedTarget(){
-        return hitTarget;
     }
 
 }

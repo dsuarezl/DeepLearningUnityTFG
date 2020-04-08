@@ -85,8 +85,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 135
       Script: {instanceID: 0}
-    - Class: 136
-      Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 222
@@ -182,7 +180,7 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: b57e29b2cd94996b24db5fc5fe449627
+      Hash: 01832e70c8e48a5b6ab113c6744aacf7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TankAgent
@@ -332,7 +330,7 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: a3933407c490b6a1908c264304a92e3f
+      Hash: 74fe634a446f9e363a598cbc271d6af2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TankArea

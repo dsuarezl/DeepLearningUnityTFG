@@ -3,49 +3,63 @@ using System.Collections;
 using MLAgents;
 using MLAgents.Sensors;
 using MLAgents.SideChannels;
+using TMPro;
 
 
 public class TankAgent : Agent
 {
-
+    public string team;
     public float angle = 45.0f;
     public float power = 10.0f;
     public float flightDuration = 3.0f;
     public float gravity = 15f;
-    public TankAgent target;
     public GameObject spawnPoint;
     public GameObject ProjectilePrefab;
     private Transform myTransform;
     public float moveSpeed = 5f;
     public float turnSpeed = 180f;
     private Rigidbody rb;
-
     private GameObject projectileObject;
-
     private bool dead;
-
     private bool shooting;
-
     private int health;
     public const int maxHealth = 30;
     public const float maxPower = 300;
     public const float minPower = 1;
-
     public const float minAngle = 1;
-
     public const float maxAngle = 80;
-
     public TankArea area;
+    private string aliveTag;
+    public string deadTag;
+
+    public TextMeshPro healthText;
 
     public override void Initialize()
     {
         rb = GetComponent<Rigidbody>();
         health = maxHealth;
+        healthText.SetText(health.ToString());
         dead = false;
         shooting = false;
         myTransform = transform;
+        this.aliveTag = this.gameObject.tag;
+
     }
 
+    public void Start()
+    {
+
+    }
+
+
+    public void setArea(TankArea area)
+    {
+        this.area = area;
+    }
+    public string getTeam()
+    {
+        return team;
+    }
 
     void shoot()
     {
@@ -58,17 +72,18 @@ public class TankAgent : Agent
     }
 
 
+
     IEnumerator SimulateProjectile()
     {
+
+        shooting = true;
+
 
         projectileObject = Instantiate(ProjectilePrefab) as GameObject;
 
         Transform projectileTransform = projectileObject.GetComponent<Transform>();
 
         ProjectileScript projectileScript = projectileObject.GetComponent<ProjectileScript>();
-        projectileScript.setTarget(target);
-
-        shooting = true;
 
         projectileTransform.position = spawnPoint.transform.position;
 
@@ -80,7 +95,7 @@ public class TankAgent : Agent
 
         float elapse_time = 0;
 
-        while (elapse_time < flightDuration && !projectileScript.hitted())
+        while (elapse_time < flightDuration && projectileObject)
         {
 
             Vector3 newPos = new Vector3(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
@@ -93,77 +108,82 @@ public class TankAgent : Agent
 
         }
 
-        Destroy(projectileObject);
+
         shooting = false;
 
     }
 
     public override void OnActionReceived(float[] vectorAction)
     {
-        // Convert the first action to forward movement
-        float forwardAmount = 0f;
 
-        if (vectorAction[0] == 1f)
+        if (!dead)
         {
-            forwardAmount = 1f;
-        }
-        else if (vectorAction[0] == 2f)
-        {
-            forwardAmount = -1f;
-        }
+            // Convert the first action to forward movement
+            float forwardAmount = 0f;
 
-        // Convert the second action to turning left or right
-        float turnAmount = 0f;
-        if (vectorAction[1] == 1f)
-        {
-            turnAmount = -1f;
-        }
-        else if (vectorAction[1] == 2f)
-        {
-            turnAmount = 1f;
-        }
-
-        // Apply movement
-        rb.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeed * Time.fixedDeltaTime);
-        transform.Rotate(transform.up * turnAmount * turnSpeed * Time.fixedDeltaTime);
-
-        //angle up/down
-        if (vectorAction[2] == 1f)
-        {
-            if (angle - 1 >= minAngle)
-                angle -= 1f;
-        }
-        else if (vectorAction[2] == 2f)
-        {
-            if (angle + 1 <= maxAngle)
-                angle += 1f;
-        }
-
-        //power up/down
-        if (vectorAction[3] == 1f)
-        {
-            if (power - 1 >= minPower)
-                power -= 1f;
-        }
-        else if (vectorAction[3] == 2f)
-        {
-            if (power + 1 <= maxPower)
-                power += 1f;
-        }
-
-        //shoot
-        if (vectorAction[4] == 1f)
-        {
-            if (!shooting)
+            if (vectorAction[0] == 1f)
             {
-                shoot();
+                forwardAmount = 1f;
             }
+            else if (vectorAction[0] == 2f)
+            {
+                forwardAmount = -1f;
+            }
+
+            // Convert the second action to turning left or right
+            float turnAmount = 0f;
+            if (vectorAction[1] == 1f)
+            {
+                turnAmount = -1f;
+            }
+            else if (vectorAction[1] == 2f)
+            {
+                turnAmount = 1f;
+            }
+
+            // Apply movement
+            rb.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeed * Time.fixedDeltaTime);
+            transform.Rotate(transform.up * turnAmount * turnSpeed * Time.fixedDeltaTime);
+
+            //angle up/down
+            if (vectorAction[2] == 1f)
+            {
+                if (angle - 1 >= minAngle)
+                    angle -= 1f;
+            }
+            else if (vectorAction[2] == 2f)
+            {
+                if (angle + 1 <= maxAngle)
+                    angle += 1f;
+            }
+
+            //power up/down
+            if (vectorAction[3] == 1f)
+            {
+                if (power - 1 >= minPower)
+                    power -= 1f;
+            }
+            else if (vectorAction[3] == 2f)
+            {
+                if (power + 1 <= maxPower)
+                    power += 1f;
+            }
+
+            //shoot
+            if (vectorAction[4] == 1f)
+            {
+                if (!shooting)
+                {
+                    shoot();
+                }
+            }
+
         }
 
 
         // Apply a tiny negative reward every step to encourage action if not shooting
-       /* if (!shooting)
-            AddReward(-1f / maxStep);*/
+        /* if (!shooting)
+             AddReward(-1f / maxStep);*/
     }
 
     public override float[] Heuristic()
@@ -238,9 +258,8 @@ public class TankAgent : Agent
     public override void OnEpisodeBegin()
     {
         resetStats();
-        area.placeTank(this,target);
+        area.placeTank(this);
     }
-
 
     public void resetStats()
     {
@@ -251,44 +270,67 @@ public class TankAgent : Agent
             shooting = false;
         }
 
-
         dead = false;
+      
+
+        this.gameObject.tag = aliveTag;
         health = maxHealth;
+        healthText.SetText(health.ToString());
     }
 
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //Whether the tank is shooting (1 float = 1 value)
-        sensor.AddObservation(isShooting());
-    
-        //Shooting power (1 float = 1 value)
-        sensor.AddObservation((power - minPower) / (maxPower - minPower));
 
-        //Shooting angle (1 float = 1 value)
-        sensor.AddObservation((angle - minAngle) / (maxAngle - minAngle));
+        if (dead)
+        {
+            sensor.AddObservation(dead);
+            sensor.AddObservation(-10000);
+            sensor.AddObservation(-10000);
+            sensor.AddObservation(-10000);
+            sensor.AddObservation(-10000);
+            sensor.AddObservation(-10000);
+            sensor.AddObservation(-10000);
+        }
+        else
+        {
 
-        //Tank position relative to parent object X 1 value
+            //Wheter the tank is dead (1 value)
+            sensor.AddObservation(dead);
 
-        float minX = -area.getSizeX()/2;
-        float maxX = area.getSizeX()/2;
+            //Whether the tank is shooting ( 1 value)
+            sensor.AddObservation(isShooting());
 
-        float minZ = -area.getSizeZ()/2;
-        float maxZ = area.getSizeZ()/2;
+            //Shooting power (1 float = 1 value)
+            sensor.AddObservation((power - minPower) / (maxPower - minPower));
 
-        sensor.AddObservation((transform.localPosition.x-minX)/(maxX - minX));
+            //Shooting angle (1 float = 1 value)
+            sensor.AddObservation((angle - minAngle) / (maxAngle - minAngle));
 
-        //Tank position relative to parent object Z 1 value
-        sensor.AddObservation((transform.localPosition.z-minZ)/(maxZ - minZ));
+            //Tank position relative to parent object X 1 value
 
-        // Distance to the target (1 float = 1 value)
-        //AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
 
-        // Direction to target(1 Vector3 = 3 values)
-       // AddVectorObs((target.transform.position - transform.position).normalized);
+            float minX = -area.getSizeX() / 2;
+            float maxX = area.getSizeX() / 2;
 
-        // Rotation y of the tank (1 float = 1 value)
-        sensor.AddObservation(transform.rotation.y/ 360.0f);
+            float minZ = -area.getSizeZ() / 2;
+            float maxZ = area.getSizeZ() / 2;
+
+
+            sensor.AddObservation((transform.localPosition.x - minX) / (maxX - minX));
+
+            //Tank position relative to parent object Z 1 value
+            sensor.AddObservation((transform.localPosition.z - minZ) / (maxZ - minZ));
+
+            // Distance to the target (1 float = 1 value)
+            //AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
+
+            // Direction to target(1 Vector3 = 3 values)
+            // AddVectorObs((target.transform.position - transform.position).normalized);
+
+            // Rotation y of the tank (1 float = 1 value)
+            sensor.AddObservation(transform.rotation.y / 360.0f);
+        }
 
         // 1 + 1 + 1 + 1 + 1 + 1 = 6 total values
     }
@@ -299,21 +341,19 @@ public class TankAgent : Agent
     }
 
 
-    private void takeDamage()
+    public void takeDamage()
     {
         health -= 10;
-       // AddReward(-1f);
-    }
+        healthText.SetText(health.ToString());
 
-    private void OnTriggerEnter(Collider collision)
-    {
-
-        if (collision.gameObject.tag == "projectile")
+        if (health <= 0)
         {
-            takeDamage();
-            if(health<=0)
-                dead =true;
+            dead = true;
+            this.gameObject.tag = deadTag;
+            healthText.SetText("Dead");
+         
         }
+
     }
 
 

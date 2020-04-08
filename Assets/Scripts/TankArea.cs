@@ -2,96 +2,155 @@
 using MLAgents;
 using System.Collections;
 using TMPro;
- 
+
 
 public class TankArea : MonoBehaviour
 {
-    public TankAgent tank1;
-    public TankAgent tank2;
-
     public float minDistance = 10;
     public float borderSize = 2;
 
+    public TextMeshPro redAlive;
 
-    public TextMeshPro redReward;
-
-    
-    public TextMeshPro blueReward;
-
+    public TextMeshPro blueAlive;
 
     private Vector3 min;
     private Vector3 max;
 
+    public GameObject redTeam;
+    public GameObject blueTeam;
 
-    public float getSizeX(){
+
+    public GameObject redTeamSpawn;
+
+    public GameObject blueTeamSpawn;
+
+    public float getSizeX()
+    {
         return this.GetComponent<Renderer>().bounds.size.x;
     }
 
-    public float getSizeZ(){
+    public float getSizeZ()
+    {
         return this.GetComponent<Renderer>().bounds.size.z;
     }
- 
+
 
     public void Start()
     {
-        min = this.GetComponent<Renderer>().bounds.min;
-        max = this.GetComponent<Renderer>().bounds.max;
-        placeTanks();
-   
+
+        resetArea();
+    }
+
+    public void resetArea(){
+
+        foreach (TankAgent tank in redTeam.GetComponentsInChildren<TankAgent>())
+        {
+            placeTank(tank);
+        }
+
+
+        foreach (TankAgent tank in blueTeam.GetComponentsInChildren<TankAgent>())
+        {
+            placeTank(tank);
+        }
     }
 
 
-    public void placeTanks(){
-        placeTank(tank1,tank2);
-        placeTank(tank2,tank1);
-    }
-    public void ResetArea() {
-            
-            tank1.EndEpisode();
-            tank2.EndEpisode();
-    }
 
-    public void placeTank(TankAgent tank, TankAgent target){
+    public void placeTank(TankAgent tank)
+    {
+
         Rigidbody rigidbody = tank.GetComponent<Rigidbody>();
 
 
         rigidbody.velocity = Vector3.zero;
         rigidbody.angularVelocity = Vector3.zero;
 
-        tank.transform.position = randomPosition();
+        tank.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+
+        if(tank.getTeam() == "red"){
+            tank.transform.position = randomPosition(redTeamSpawn.GetComponent<Renderer>());
+        }else if(tank.getTeam() == "blue"){
+            tank.transform.position = randomPosition(blueTeamSpawn.GetComponent<Renderer>());
+        }
+    }
+
+    public void placeTank(TankAgent tank, TankAgent target)
+    {
+        Rigidbody rigidbody = tank.GetComponent<Rigidbody>();
+
+
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+
+        tank.transform.position = randomPosition(this.GetComponent<Renderer>());
 
         int count = 0;
-        while(Vector3.Distance(tank.transform.position,target.transform.position) < minDistance && count < 30){
-            tank.transform.position = randomPosition();
+        while (Vector3.Distance(tank.transform.position, target.transform.position) < minDistance && count < 30)
+        {
+            tank.transform.position = randomPosition(this.GetComponent<Renderer>());
             count++;
-     
+
         }
         tank.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
     }
 
-    private void Update(){
 
-        if(tank1.isDead()){
-            tank2.SetReward(1f);
-            tank1.SetReward(-1f);
-
-
-            ResetArea();
-
-        }else if(tank2.isDead()){
-
-            tank1.SetReward(1f);
-            tank2.SetReward(-1f);
-
-            ResetArea();
+    public int aliveInTeam(GameObject team)
+    {
+        int alives = 0;
+        foreach (TankAgent tank in team.GetComponentsInChildren<TankAgent>())
+        {
+            if (!tank.isDead())
+            {
+                alives++;
+            }
         }
 
-        redReward.SetText(tank2.GetCumulativeReward().ToString("0.00"));
-        blueReward.SetText(tank1.GetCumulativeReward().ToString("0.00"));
+        return alives;
     }
 
-    public Vector3 randomPosition(){
-        return new Vector3 ((Random.Range(min.x +borderSize, max.x -borderSize)), 1, (Random.Range(min.z +borderSize, max.z -borderSize)));;
+
+    public void teamWins(GameObject teamWinner, GameObject teamLoser)
+    {
+        foreach (TankAgent tank in teamWinner.GetComponentsInChildren<TankAgent>())
+        {
+            tank.AddReward(1);
+            tank.EndEpisode();
+
+        }
+
+        foreach (TankAgent tank in teamLoser.GetComponentsInChildren<TankAgent>())
+        {
+            tank.AddReward(-1);
+            tank.EndEpisode();
+
+        }
+
+    }
+
+    private void Update()
+    {
+
+
+        if (aliveInTeam(redTeam) == 0)
+        {
+            teamWins(blueTeam,redTeam);
+        }else if(aliveInTeam(blueTeam) == 0){
+
+            teamWins(redTeam,blueTeam);
+        }
+
+        redAlive.SetText(aliveInTeam(redTeam).ToString());
+        blueAlive.SetText(aliveInTeam(blueTeam).ToString());
+    }
+
+    public Vector3 randomPosition(Renderer spawn)
+    {
+        min = spawn.bounds.min;
+        max = spawn.bounds.max;
+
+        return new Vector3((Random.Range(min.x + borderSize, max.x - borderSize)), 1, (Random.Range(min.z + borderSize, max.z - borderSize))); ;
     }
 
 }
