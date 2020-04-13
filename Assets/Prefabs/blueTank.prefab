@@ -17,6 +17,31 @@ PrefabInstance:
       propertyPath: m_TagString
       value: blueTank
       objectReference: {fileID: 0}
+    - target: {fileID: 8835031038543067306, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: team
+      value: blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835031038543067306, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: targetTag
+      value: redTank
+      objectReference: {fileID: 0}
+    - target: {fileID: -3037228461616864222, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_SensorName
+      value: BlueRayPerceptionSensor
+      objectReference: {fileID: 0}
+    - target: {fileID: -3037228461616864222, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: redTank
+      objectReference: {fileID: 0}
+    - target: {fileID: -3037228461616864222, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: blueTank
+      objectReference: {fileID: 0}
     - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -77,20 +102,15 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ff21ff0ea9b18924bb1fdfbb0e58f5cb, type: 2}
+    - target: {fileID: 7244690090844965220, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8999453678444927548, guid: f04bdcc6de26bb46987b4fb11809f31e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ff21ff0ea9b18924bb1fdfbb0e58f5cb, type: 2}
-    - target: {fileID: 8835031038543067306, guid: f04bdcc6de26bb46987b4fb11809f31e,
-        type: 3}
-      propertyPath: team
-      value: blue
-      objectReference: {fileID: 0}
-    - target: {fileID: 8835031038543067306, guid: f04bdcc6de26bb46987b4fb11809f31e,
-        type: 3}
-      propertyPath: targetTag
-      value: redTank
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f04bdcc6de26bb46987b4fb11809f31e, type: 3}

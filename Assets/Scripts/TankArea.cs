@@ -2,6 +2,7 @@
 using MLAgents;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
 
 
 public class TankArea : MonoBehaviour
@@ -16,13 +17,22 @@ public class TankArea : MonoBehaviour
     private Vector3 min;
     private Vector3 max;
 
-    public GameObject redTeam;
-    public GameObject blueTeam;
+    public int defaultRedTeamNumber;
+    public int defaultBlueTeamNumber;
+    private int redTeamNumber;
+    private int blueTeamNumber;
 
+    public TankAgent redTankPrefab;
+
+    public TankAgent blueTankPrefab;
 
     public GameObject redTeamSpawn;
 
     public GameObject blueTeamSpawn;
+
+    private List<TankAgent> redTeam;
+    private List<TankAgent> blueTeam;
+
 
     public float getSizeX()
     {
@@ -37,22 +47,44 @@ public class TankArea : MonoBehaviour
 
     public void Start()
     {
-
+        redTeam = new List<TankAgent>();
+        blueTeam = new List<TankAgent>();
         resetArea();
     }
 
-    public void resetArea(){
+    public void resetArea()
+    {
 
-        foreach (TankAgent tank in redTeam.GetComponentsInChildren<TankAgent>())
+        redTeamNumber = (int)Academy.Instance.FloatProperties.GetPropertyWithDefault("red_team_number", defaultRedTeamNumber);
+        blueTeamNumber = (int)Academy.Instance.FloatProperties.GetPropertyWithDefault("blue_team_number", defaultBlueTeamNumber);
+
+
+        int count = 0;
+        while (redTeam.Count < redTeamNumber && count < 30)
+        {
+            TankAgent tank = Instantiate(redTankPrefab);
+            tank.setArea(this);
+            redTeam.Add(tank);
+            count++;
+        }
+        foreach (TankAgent tank in redTeam)
         {
             placeTank(tank);
         }
 
-
-        foreach (TankAgent tank in blueTeam.GetComponentsInChildren<TankAgent>())
+        count = 0;
+        while (blueTeam.Count < blueTeamNumber && count < 30)
+        {
+            TankAgent tank = Instantiate(blueTankPrefab);
+            tank.setArea(this);
+            blueTeam.Add(tank);
+            count++;
+        }
+        foreach (TankAgent tank in blueTeam)
         {
             placeTank(tank);
         }
+
     }
 
 
@@ -68,9 +100,12 @@ public class TankArea : MonoBehaviour
 
         tank.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
-        if(tank.getTeam() == "red"){
+        if (tank.getTeam() == "red")
+        {
             tank.transform.position = randomPosition(redTeamSpawn.GetComponent<Renderer>());
-        }else if(tank.getTeam() == "blue"){
+        }
+        else if (tank.getTeam() == "blue")
+        {
             tank.transform.position = randomPosition(blueTeamSpawn.GetComponent<Renderer>());
         }
     }
@@ -96,31 +131,16 @@ public class TankArea : MonoBehaviour
     }
 
 
-    public int aliveInTeam(GameObject team)
+    public void teamWins(List<TankAgent> teamWinner, List<TankAgent> teamLoser)
     {
-        int alives = 0;
-        foreach (TankAgent tank in team.GetComponentsInChildren<TankAgent>())
-        {
-            if (!tank.isDead())
-            {
-                alives++;
-            }
-        }
-
-        return alives;
-    }
-
-
-    public void teamWins(GameObject teamWinner, GameObject teamLoser)
-    {
-        foreach (TankAgent tank in teamWinner.GetComponentsInChildren<TankAgent>())
+        foreach (TankAgent tank in teamWinner)
         {
             tank.AddReward(1);
             tank.EndEpisode();
 
         }
 
-        foreach (TankAgent tank in teamLoser.GetComponentsInChildren<TankAgent>())
+        foreach (TankAgent tank in teamLoser)
         {
             tank.AddReward(-1);
             tank.EndEpisode();
@@ -129,20 +149,36 @@ public class TankArea : MonoBehaviour
 
     }
 
+
+    public void removeTankFromTeam(TankAgent tank)
+    {
+        if (tank.getTeam() == "red")
+        {
+            redTeam.Remove(tank);
+        }
+        else if (tank.getTeam() == "blue")
+        {
+            blueTeam.Remove(tank);
+        }
+    }
+
     private void Update()
     {
 
-
-        if (aliveInTeam(redTeam) == 0)
+        if (redTeam.Count == 0)
         {
-            teamWins(blueTeam,redTeam);
-        }else if(aliveInTeam(blueTeam) == 0){
+            teamWins(blueTeam, redTeam);
+            resetArea();
+        }
+        else if (blueTeam.Count == 0)
+        {
 
-            teamWins(redTeam,blueTeam);
+            teamWins(redTeam, blueTeam);
+            resetArea();
         }
 
-        redAlive.SetText(aliveInTeam(redTeam).ToString());
-        blueAlive.SetText(aliveInTeam(blueTeam).ToString());
+        redAlive.SetText(redTeam.Count.ToString());
+        blueAlive.SetText(blueTeam.Count.ToString());
     }
 
     public Vector3 randomPosition(Renderer spawn)

@@ -424,12 +424,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 7
+    vectorObservationSize: 6
     numStackedVectorObservations: 1
     vectorActionSize: 0300000003000000030000000300000002000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 955a7f72c8f7831f08d324138343faab, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: TankLearning
@@ -480,6 +480,7 @@ MonoBehaviour:
   m_DetectableTags:
   - blueTank
   - redTank
+  - obstacle
   - wall
   m_RaysPerDirection: 6
   m_MaxRayDegrees: 40
