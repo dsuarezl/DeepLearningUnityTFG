@@ -1447,18 +1447,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea07ffe6c950b3fac989033547a0ae33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 10
   borderSize: 2
-  redAlive: {fileID: 4377285129810039850}
-  blueAlive: {fileID: 1614700076547614574}
-  defaultRedTeamNumber: 3
-  defaultBlueTeamNumber: 3
-  redTankPrefab: {fileID: 3578891722675999857, guid: 6ed9e1c94e509b56e90a787a592d3a6a,
-    type: 3}
-  blueTankPrefab: {fileID: 8585927859697795285, guid: 83fb2f257482b4ee0aefb47c0f5e4a70,
-    type: 3}
-  redTeamSpawn: {fileID: 8732758208882502555}
-  blueTeamSpawn: {fileID: 5343728909499313163}
+  aliveText:
+  - {fileID: 1614700076547614574}
+  - {fileID: 4377285129810039850}
+  numberOfTeams: 2
+  defaultTeamNumbers: 0300000003000000
+  tankPrefabs:
+  - {fileID: 8585927859697795285, guid: 83fb2f257482b4ee0aefb47c0f5e4a70, type: 3}
+  - {fileID: 3578891722675999857, guid: 6ed9e1c94e509b56e90a787a592d3a6a, type: 3}
+  teamSpawns:
+  - {fileID: 5343728909499313163}
+  - {fileID: 8732758208882502555}
 --- !u!1 &7107348338096383258
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,5 +4,5 @@ TankLearning:
   min_lesson_length: 100
   signal_smoothing: true
   parameters:
-    red_team_number: [1, 2, 3, 5]
-    blue_team_number: [1, 2, 3, 5]
+    team_0_number: [1, 2, 3, 5]
+    team_1_number: [1, 2, 3, 5]

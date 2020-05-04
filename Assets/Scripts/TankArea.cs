@@ -7,33 +7,48 @@ using System.Collections.Generic;
 
 public class TankArea : MonoBehaviour
 {
-    public float minDistance = 10;
-    public float borderSize = 2;
-
-    public TextMeshPro redAlive;
-
-    public TextMeshPro blueAlive;
-
+    public float borderSize;
     private Vector3 min;
     private Vector3 max;
 
-    public int defaultRedTeamNumber;
-    public int defaultBlueTeamNumber;
-    private int redTeamNumber;
-    private int blueTeamNumber;
+    public TextMeshPro[] aliveText;
 
-    public TankAgent redTankPrefab;
+    //Number of teams
+    public int numberOfTeams;
 
-    public TankAgent blueTankPrefab;
+    //Number of tanks alive in a team
+    private int[] aliveNumbers;
 
-    public GameObject redTeamSpawn;
+    //Default team size
+    public int[] defaultTeamNumbers;
 
-    public GameObject blueTeamSpawn;
+    //Efective team size
+    private int[] teamNumbers;
 
-    private List<TankAgent> redTeam;
-    private List<TankAgent> blueTeam;
+    //Ids of alive teams
+    private List<int> aliveTeams;
+
+    //Prefabs of the team tanks
+    public TankAgent[] tankPrefabs;
+
+    //Spawns of the teams
+    public GameObject[] teamSpawns;
+
+    //Array of teams
+    private List<TankAgent>[] teams;
+
+    //Number of agents who have requested the reset of the area
+    private int reset;
+
+    //total number of agents in the area
+    private int totalAgents;
 
 
+
+    public int getAliveInTeam(int teamId)
+    {
+        return aliveNumbers[teamId];
+    }
     public float getSizeX()
     {
         return this.GetComponent<Renderer>().bounds.size.x;
@@ -44,141 +59,222 @@ public class TankArea : MonoBehaviour
         return this.GetComponent<Renderer>().bounds.size.z;
     }
 
-
     public void Start()
     {
-        redTeam = new List<TankAgent>();
-        blueTeam = new List<TankAgent>();
+
+        aliveNumbers = new int[numberOfTeams];
+
+        teamNumbers = new int[numberOfTeams];
+
+        teams = new List<TankAgent>[numberOfTeams];
+
+        reset = 0;
+        totalAgents = 0;
+
+        aliveTeams = new List<int>();
+
+        for (int i = 0; i < teams.Length; i++)
+        {
+            teams[i] = new List<TankAgent>();
+
+        }
+
         resetArea();
     }
 
-    public void resetArea()
+
+    public void adjustTeamNumber(List<TankAgent> team, int teamNumber, TankAgent prefab)
     {
 
-        redTeamNumber = (int)Academy.Instance.FloatProperties.GetPropertyWithDefault("red_team_number", defaultRedTeamNumber);
-        blueTeamNumber = (int)Academy.Instance.FloatProperties.GetPropertyWithDefault("blue_team_number", defaultBlueTeamNumber);
+        if (team.Count != teamNumber)
+        {
 
+            int count = 0;
 
-        int count = 0;
-        while (redTeam.Count < redTeamNumber && count < 30)
-        {
-            TankAgent tank = Instantiate(redTankPrefab);
-            tank.setArea(this);
-            redTeam.Add(tank);
-            count++;
-        }
-        foreach (TankAgent tank in redTeam)
-        {
-            placeTank(tank);
-        }
+            if (team.Count < teamNumber)
+            {
+                while (team.Count < teamNumber && count < 30)
+                {
+                    TankAgent tank = Instantiate(prefab);
+                    tank.setArea(this);
+                    team.Add(tank);
+                    count++;
+                }
+            }
+            else
+            {
 
-        count = 0;
-        while (blueTeam.Count < blueTeamNumber && count < 30)
-        {
-            TankAgent tank = Instantiate(blueTankPrefab);
-            tank.setArea(this);
-            blueTeam.Add(tank);
-            count++;
-        }
-        foreach (TankAgent tank in blueTeam)
-        {
-            placeTank(tank);
+                while (team.Count > teamNumber && count < 30)
+                {
+                    removeTankFromTeam(team[0]);
+                    count++;
+                }
+            }
         }
 
     }
+    public void resetArea()
+    {
+
+        reset = 0;
+        totalAgents = 0;
+
+        for (int i = 0; i < teams.Length; i++)
+        {
+            if(!aliveTeams.Contains(i))
+                aliveTeams.Add(i);
+        }
+
+        for (int i = 0; i < numberOfTeams; i++)
+        {
+            teamNumbers[i] = (int)Academy.Instance.FloatProperties.GetPropertyWithDefault("team_" + i + "_number", defaultTeamNumbers[i]);
+            aliveNumbers[i] = teamNumbers[i];
+            totalAgents += teamNumbers[i];
+        }
 
 
+
+
+        for (int i = 0; i < numberOfTeams; i++)
+        {
+
+            adjustTeamNumber(teams[i], teamNumbers[i], tankPrefabs[i]);
+
+            foreach (TankAgent tank in teams[i])
+            {
+                tank.resetStats();
+                placeTank(tank);
+            }
+
+        }
+
+    }
 
     public void placeTank(TankAgent tank)
     {
 
         Rigidbody rigidbody = tank.GetComponent<Rigidbody>();
 
-
         rigidbody.velocity = Vector3.zero;
         rigidbody.angularVelocity = Vector3.zero;
 
         tank.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
-        if (tank.getTeam() == "red")
-        {
-            tank.transform.position = randomPosition(redTeamSpawn.GetComponent<Renderer>());
-        }
-        else if (tank.getTeam() == "blue")
-        {
-            tank.transform.position = randomPosition(blueTeamSpawn.GetComponent<Renderer>());
-        }
-    }
+        tank.transform.position = randomPosition(teamSpawns[tank.getTeam()].GetComponent<Renderer>());
 
-    public void placeTank(TankAgent tank, TankAgent target)
-    {
-        Rigidbody rigidbody = tank.GetComponent<Rigidbody>();
-
-
-        rigidbody.velocity = Vector3.zero;
-        rigidbody.angularVelocity = Vector3.zero;
-
-        tank.transform.position = randomPosition(this.GetComponent<Renderer>());
-
-        int count = 0;
-        while (Vector3.Distance(tank.transform.position, target.transform.position) < minDistance && count < 30)
-        {
-            tank.transform.position = randomPosition(this.GetComponent<Renderer>());
-            count++;
-
-        }
-        tank.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
     }
 
 
-    public void teamWins(List<TankAgent> teamWinner, List<TankAgent> teamLoser)
+    public void teamWins(List<TankAgent> teamWinner)
     {
-        foreach (TankAgent tank in teamWinner)
-        {
-            tank.AddReward(1);
-            tank.EndEpisode();
 
+        foreach (List<TankAgent> team in teams)
+        {
+            if (team == teamWinner)
+            {
+                foreach (TankAgent tank in team)
+                {
+                    tank.AddReward(1);
+                    tank.EndEpisode();
+
+                }
+            }
+            else
+            {
+                foreach (TankAgent tank in team)
+                {
+                    tank.AddReward(-1);
+                    tank.EndEpisode();
+
+                }
+
+            }
         }
 
-        foreach (TankAgent tank in teamLoser)
+    }
+
+    public void requestReset()
+    {
+        reset++;
+
+        Debug.Log(reset + " /" + totalAgents);
+        if (reset >= totalAgents)
         {
-            tank.AddReward(-1);
-            tank.EndEpisode();
-
+            resetArea();
         }
-
     }
 
 
     public void removeTankFromTeam(TankAgent tank)
     {
-        if (tank.getTeam() == "red")
-        {
-            redTeam.Remove(tank);
-        }
-        else if (tank.getTeam() == "blue")
-        {
-            blueTeam.Remove(tank);
-        }
+        teams[tank.getTeam()].Remove(tank);
+
+        Destroy(tank.gameObject);
     }
 
+
+    public int aliveInTeam(List<TankAgent> team)
+    {
+        int alive = 0;
+
+        foreach (TankAgent tank in team)
+        {
+            if (!tank.isDead())
+                alive++;
+        }
+        return alive;
+    }
+
+    public void tie()
+    {
+        foreach (List<TankAgent> team in teams)
+        {
+            foreach (TankAgent tank in team)
+            {
+                tank.SetReward(0);
+                tank.EndEpisode();
+            }
+        }
+
+    }
+
+
+    public void tankDead(int teamId)
+    {
+        aliveNumbers[teamId]--;
+    }
     private void Update()
     {
 
-        if (redTeam.Count == 0)
-        {
-            teamWins(blueTeam, redTeam);
+        /*
+        if(Input.GetKeyDown(KeyCode.P)){
             resetArea();
         }
-        else if (blueTeam.Count == 0)
-        {
+        */
 
-            teamWins(redTeam, blueTeam);
-            resetArea();
+        for (int i = 0; i < aliveTeams.Count; i++)
+        {
+            int id = aliveTeams[i];
+
+            aliveText[id].SetText(aliveNumbers[id].ToString());
+
+            if (aliveNumbers[id] <= 0)
+            {
+                aliveTeams.Remove(id);
+                i--;
+            }
         }
 
-        redAlive.SetText(redTeam.Count.ToString());
-        blueAlive.SetText(blueTeam.Count.ToString());
+        if (aliveTeams.Count == 1)
+        {
+            teamWins(teams[aliveTeams[0]]);
+        }
+        else
+        if (aliveTeams.Count == 0)
+        {
+            tie();
+        }
+
     }
 
     public Vector3 randomPosition(Renderer spawn)

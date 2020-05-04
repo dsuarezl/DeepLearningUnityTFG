@@ -4,6 +4,9 @@ ScriptsOnlyBuild:
     - ProjectileScript
     - TankAgent
     - TankArea
+    Unity.ML-Agents.Editor.dll:
+    - MLAgents.Editor.AgentEditor
+    - MLAgents.Editor.BehaviorParametersEditor
     Unity.ML-Agents.dll:
     - MLAgents.DecisionRequester
     - MLAgents.Policies.BehaviorParameters
@@ -180,7 +183,7 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: 01832e70c8e48a5b6ab113c6744aacf7
+      Hash: d75e11d94ed772968b138b9092a2539c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TankAgent
@@ -330,7 +333,7 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: 9880fef4b07f52b0fd6c7ac3e63fcac5
+      Hash: ff3d2fbcb4b40d2eced3ce3d61405973
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TankArea

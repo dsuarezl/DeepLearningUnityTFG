@@ -77,11 +77,11 @@
      <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityToExternal.cs" />
      <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityToExternalGrpc.cs" />
      <None Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\Unity.ML-Agents.CommunicatorObjects.asmdef" />
- <Reference Include="UnityEditor.UI">
- <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

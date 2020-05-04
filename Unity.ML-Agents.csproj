@@ -112,11 +112,11 @@
  <Reference Include="Barracuda">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Barracuda.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

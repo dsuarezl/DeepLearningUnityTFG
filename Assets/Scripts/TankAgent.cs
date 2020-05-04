@@ -8,7 +8,7 @@ using TMPro;
 
 public class TankAgent : Agent
 {
-    public string team;
+    public int team;
     public float angle = 45.0f;
     public float power = 10.0f;
     public float flightDuration = 3.0f;
@@ -32,6 +32,7 @@ public class TankAgent : Agent
     private string aliveTag;
     public string deadTag;
 
+
     public TextMeshPro healthText;
 
     public override void Initialize()
@@ -46,6 +47,8 @@ public class TankAgent : Agent
 
     }
 
+
+
     public void Start()
     {
 
@@ -56,7 +59,7 @@ public class TankAgent : Agent
     {
         this.area = area;
     }
-    public string getTeam()
+    public int getTeam()
     {
         return team;
     }
@@ -108,7 +111,7 @@ public class TankAgent : Agent
 
         }
 
-        if(elapse_time >= flightDuration || projectileObject)
+        if (elapse_time >= flightDuration || projectileObject)
             Destroy(projectileObject);
 
 
@@ -119,67 +122,70 @@ public class TankAgent : Agent
     public override void OnActionReceived(float[] vectorAction)
     {
 
+        if (!dead)
+        {
 
-        // Convert the first action to forward movement
-        float forwardAmount = 0f;
+            // Convert the first action to forward movement
+            float forwardAmount = 0f;
 
-        if (vectorAction[0] == 1f)
-        {
-            forwardAmount = 1f;
-        }
-        else if (vectorAction[0] == 2f)
-        {
-            forwardAmount = -1f;
-        }
-
-        // Convert the second action to turning left or right
-        float turnAmount = 0f;
-        if (vectorAction[1] == 1f)
-        {
-            turnAmount = -1f;
-        }
-        else if (vectorAction[1] == 2f)
-        {
-            turnAmount = 1f;
-        }
-
-        // Apply movement
-        rb.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeed * Time.fixedDeltaTime);
-        transform.Rotate(transform.up * turnAmount * turnSpeed * Time.fixedDeltaTime);
-
-        //angle up/down
-        if (vectorAction[2] == 1f)
-        {
-            if (angle - 1 >= minAngle)
-                angle -= 1f;
-        }
-        else if (vectorAction[2] == 2f)
-        {
-            if (angle + 1 <= maxAngle)
-                angle += 1f;
-        }
-
-        //power up/down
-        if (vectorAction[3] == 1f)
-        {
-            if (power - 1 >= minPower)
-                power -= 1f;
-        }
-        else if (vectorAction[3] == 2f)
-        {
-            if (power + 1 <= maxPower)
-                power += 1f;
-        }
-
-        //shoot
-        if (vectorAction[4] == 1f)
-        {
-            if (!shooting)
+            if (vectorAction[0] == 1f)
             {
-                shoot();
+                forwardAmount = 1f;
             }
-        }
+            else if (vectorAction[0] == 2f)
+            {
+                forwardAmount = -1f;
+            }
 
+            // Convert the second action to turning left or right
+            float turnAmount = 0f;
+            if (vectorAction[1] == 1f)
+            {
+                turnAmount = -1f;
+            }
+            else if (vectorAction[1] == 2f)
+            {
+                turnAmount = 1f;
+            }
+
+            // Apply movement
+            rb.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeed * Time.fixedDeltaTime);
+            transform.Rotate(transform.up * turnAmount * turnSpeed * Time.fixedDeltaTime);
+
+            //angle up/down
+            if (vectorAction[2] == 1f)
+            {
+                if (angle - 1 >= minAngle)
+                    angle -= 1f;
+            }
+            else if (vectorAction[2] == 2f)
+            {
+                if (angle + 1 <= maxAngle)
+                    angle += 1f;
+            }
+
+            //power up/down
+            if (vectorAction[3] == 1f)
+            {
+                if (power - 1 >= minPower)
+                    power -= 1f;
+            }
+            else if (vectorAction[3] == 2f)
+            {
+                if (power + 1 <= maxPower)
+                    power += 1f;
+            }
+
+            //shoot
+            if (vectorAction[4] == 1f)
+            {
+                if (!shooting)
+                {
+                    shoot();
+                }
+            }
+
+        }
 
 
 
@@ -259,7 +265,7 @@ public class TankAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        resetStats();
+        area.requestReset();
     }
 
 
@@ -279,46 +285,65 @@ public class TankAgent : Agent
         dead = false;
 
         health = maxHealth;
+        this.gameObject.tag = aliveTag;
         healthText.SetText(health.ToString());
     }
-
 
     public override void CollectObservations(VectorSensor sensor)
     {
 
 
-        //Whether the tank is shooting ( 1 value)
-        sensor.AddObservation(isShooting());
+        //Whether the tank is dead ( 1 value)
+        sensor.AddObservation(dead);
 
-        //Shooting power (1 float = 1 value)
-        sensor.AddObservation((power - minPower) / (maxPower - minPower));
-
-        //Shooting angle (1 float = 1 value)
-        sensor.AddObservation((angle - minAngle) / (maxAngle - minAngle));
-
-        //Tank position relative to parent object X 1 value
+        //Number of agents alive in the same team
+        sensor.AddObservation(area.getAliveInTeam(team));
 
 
-        float minX = -area.getSizeX() / 2;
-        float maxX = area.getSizeX() / 2;
+        if (dead)
+        {
 
-        float minZ = -area.getSizeZ() / 2;
-        float maxZ = area.getSizeZ() / 2;
+            for (int i = 0; i < 3; i++)
+                sensor.AddObservation(-1000);
 
+        }
+        else
+        {
+     
 
-        sensor.AddObservation((transform.localPosition.x - minX) / (maxX - minX));
+            //Whether the tank is shooting ( 1 value)
+            sensor.AddObservation(isShooting());
 
-        //Tank position relative to parent object Z 1 value
-        sensor.AddObservation((transform.localPosition.z - minZ) / (maxZ - minZ));
+            //Shooting power (1 float = 1 value)
+            sensor.AddObservation((power - minPower) / (maxPower - minPower));
 
-        // Distance to the target (1 float = 1 value)
-        //AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
+            //Shooting angle (1 float = 1 value)
+            sensor.AddObservation((angle - minAngle) / (maxAngle - minAngle));
 
-        // Direction to target(1 Vector3 = 3 values)
-        // AddVectorObs((target.transform.position - transform.position).normalized);
+            //Tank position relative to parent object X 1 value
 
-        // Rotation y of the tank (1 float = 1 value)
-        sensor.AddObservation(transform.rotation.y / 360.0f);
+            /*
+            float minX = -area.getSizeX() / 2;
+            float maxX = area.getSizeX() / 2;
+
+            float minZ = -area.getSizeZ() / 2;
+            float maxZ = area.getSizeZ() / 2;
+
+            
+            sensor.AddObservation((transform.localPosition.x - minX) / (maxX - minX));
+
+            //Tank position relative to parent object Z 1 value
+            sensor.AddObservation((transform.localPosition.z - minZ) / (maxZ - minZ));
+
+            // Distance to the target (1 float = 1 value)
+            //AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
+
+            // Direction to target(1 Vector3 = 3 values)
+            // AddVectorObs((target.transform.position - transform.position).normalized);
+
+            // Rotation y of the tank (1 float = 1 value)
+            sensor.AddObservation(transform.rotation.y / 360.0f);*/
+        }
 
 
         // 1 + 1 + 1 + 1 + 1 + 1 = 6 total values
@@ -338,11 +363,10 @@ public class TankAgent : Agent
         if (health <= 0)
         {
             dead = true;
+            area.tankDead(team);
             clearProjectile();
-            area.removeTankFromTeam(this);
-            this.SetReward(-1);
-            this.EndEpisode();
-            Destroy(this.gameObject);
+            this.gameObject.tag = deadTag;
+            healthText.SetText("Dead");
 
         }
 
