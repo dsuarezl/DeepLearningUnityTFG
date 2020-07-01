@@ -297,7 +297,7 @@ public class TankAgent : Agent
         sensor.AddObservation(dead);
 
         //Number of agents alive in the same team
-        sensor.AddObservation(area.getAliveInTeam(team));
+       // sensor.AddObservation(area.getAliveInTeam(team));
 
 
         if (dead)
@@ -312,7 +312,7 @@ public class TankAgent : Agent
      
 
             //Whether the tank is shooting ( 1 value)
-            sensor.AddObservation(isShooting());
+           // sensor.AddObservation(isShooting());
 
             //Shooting power (1 float = 1 value)
             sensor.AddObservation((power - minPower) / (maxPower - minPower));
@@ -322,14 +322,14 @@ public class TankAgent : Agent
 
             //Tank position relative to parent object X 1 value
 
-            /*
-            float minX = -area.getSizeX() / 2;
+           /*float minX = -area.getSizeX() / 2;
             float maxX = area.getSizeX() / 2;
 
             float minZ = -area.getSizeZ() / 2;
             float maxZ = area.getSizeZ() / 2;
 
-            
+          
+
             sensor.AddObservation((transform.localPosition.x - minX) / (maxX - minX));
 
             //Tank position relative to parent object Z 1 value
@@ -339,10 +339,11 @@ public class TankAgent : Agent
             //AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
 
             // Direction to target(1 Vector3 = 3 values)
-            // AddVectorObs((target.transform.position - transform.position).normalized);
+            // AddVectorObs((target.transform.position - transform.position).normalized);*/
 
-            // Rotation y of the tank (1 float = 1 value)
-            sensor.AddObservation(transform.rotation.y / 360.0f);*/
+
+            //Rotation y of the tank (1 float = 1 value)
+            sensor.AddObservation(transform.rotation.y / 360.0f);
         }
 
 

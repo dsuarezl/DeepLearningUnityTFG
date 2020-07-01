@@ -246,11 +246,6 @@ public class TankArea : MonoBehaviour
     private void Update()
     {
 
-        /*
-        if(Input.GetKeyDown(KeyCode.P)){
-            resetArea();
-        }
-        */
 
         for (int i = 0; i < aliveTeams.Count; i++)
         {

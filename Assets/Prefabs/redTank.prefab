@@ -102,6 +102,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8150684342600418873, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7244690090844965220, guid: f04bdcc6de26bb46987b4fb11809f31e,
         type: 3}
       propertyPath: m_Mesh

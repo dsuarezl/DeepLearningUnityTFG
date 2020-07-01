@@ -424,12 +424,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 5
+    vectorObservationSize: 4
     numStackedVectorObservations: 1
     vectorActionSize: 0300000003000000030000000300000002000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 789def22fcde5c70f869bd261c91b812, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: TankLearning
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_RaysPerDirection: 6
   m_MaxRayDegrees: 40
   m_SphereCastRadius: 0.5
-  m_RayLength: 20
+  m_RayLength: 200
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
