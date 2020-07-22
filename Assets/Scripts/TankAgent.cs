@@ -264,7 +264,8 @@ public class TankAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        area.requestReset();
+        if(area != null)
+            area.requestReset();
     }
 
 
@@ -337,7 +338,7 @@ public class TankAgent : Agent
             //Rotation y of the tank (1 float = 1 value)
             sensor.AddObservation(transform.rotation.y / 360.0f);
 
-            //Add position of visualized tanks on teams spherecast
+            //Add position of visualized tanks from other allies
             foreach (Vector3 position in area.getVisualized(team))
             {
                 sensor.AddObservation((position.x - minX) / (maxX - minX));
@@ -355,9 +356,6 @@ public class TankAgent : Agent
             }
         }
 
-
-
-        // 1 + 1 + 1 + 1 + 1 + 1 = 6 total values
     }
 
     public bool isDead()

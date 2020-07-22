@@ -290,31 +290,33 @@ public class TankArea : MonoBehaviour
         }
 
 
-        foreach (int i in aliveTeams)
+        foreach (int team in aliveTeams)
         {
-            visualized[i].Clear();
-            
+            visualized[team].Clear();
 
-            foreach (TankAgent tank in teams[i])
+
+            foreach (TankAgent tank in this.teams[team])
             {
                 if (!tank.isDead())
                 {
 
-                    Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, sphereRadius);
-                    foreach (Collider collider in hitColliders)
+                    foreach (RayPerceptionOutput.RayOutput ro in RayPerceptionSensor.Perceive(tank.gameObject.GetComponent<RayPerceptionSensorComponent3D>().GetRayPerceptionInput()).RayOutputs)
                     {
-                        if (collider.gameObject.tag == tank.gameObject.GetComponent<RayPerceptionSensorComponent3D>().DetectableTags[0])
+
+
+                        if (ro.HitTagIndex == 0)
                         {
-                            visualized[i].Add(collider.gameObject.transform.localPosition);
+                            visualized[team].Add(ro.HitGameObject.transform.localPosition);
                         }
+
                     }
+
                 }
+
+
+
             }
-
         }
-
-
-
     }
 
     public Vector3 randomPosition(Renderer spawn)

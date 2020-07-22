@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 8
     NumStackedVectorObservations: 1
     VectorActionSize: 0300000003000000030000000300000002000000
     VectorActionDescriptions: []
@@ -435,6 +435,7 @@ MonoBehaviour:
   m_BehaviorName: TankLearning
   TeamId: 0
   m_UseChildSensors: 1
+  m_ObservableAttributeHandling: 0
 --- !u!114 &8835031038543067306
 MonoBehaviour:
   m_ObjectHideFlags: 0

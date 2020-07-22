@@ -1354,7 +1354,7 @@ MonoBehaviour:
   - {fileID: 1614700076547614574}
   - {fileID: 4377285129810039850}
   numberOfTeams: 2
-  defaultTeamNumbers: 0200000002000000
+  defaultTeamNumbers: 0100000001000000
   tankPrefabs:
   - {fileID: 8585927859697795285, guid: 83fb2f257482b4ee0aefb47c0f5e4a70, type: 3}
   - {fileID: 3578891722675999857, guid: 6ed9e1c94e509b56e90a787a592d3a6a, type: 3}
