@@ -1,8 +1,0 @@
-TankLearning:
-  measure: progress
-  thresholds: [0.1, 0.3, 0.5]
-  min_lesson_length: 100
-  signal_smoothing: true
-  parameters:
-    team_0_number: [1, 2, 3, 5]
-    team_1_number: [1, 2, 3, 5]

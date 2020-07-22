@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using MLAgents;
 using System.Collections;
+using Unity.MLAgents;
+using Unity.MLAgents.Sensors;
 using TMPro;
 using System.Collections.Generic;
 
@@ -43,7 +44,11 @@ public class TankArea : MonoBehaviour
     //total number of agents in the area
     private int totalAgents;
 
+    //sets of tanks visualized
+    private HashSet<Vector3>[] visualized;
 
+    //Radious of sphere cast
+    public int sphereRadius = 30;
 
     public int getAliveInTeam(int teamId)
     {
@@ -54,10 +59,22 @@ public class TankArea : MonoBehaviour
         return this.GetComponent<Renderer>().bounds.size.x;
     }
 
+    public int getTeamNumber(int team)
+    {
+        return teamNumbers[team];
+    }
+
     public float getSizeZ()
     {
         return this.GetComponent<Renderer>().bounds.size.z;
     }
+
+    public HashSet<Vector3> getVisualized(int team)
+    {
+        return visualized[team];
+    }
+
+
 
     public void Start()
     {
@@ -67,6 +84,7 @@ public class TankArea : MonoBehaviour
         teamNumbers = new int[numberOfTeams];
 
         teams = new List<TankAgent>[numberOfTeams];
+        visualized = new HashSet<Vector3>[numberOfTeams];
 
         reset = 0;
         totalAgents = 0;
@@ -76,7 +94,7 @@ public class TankArea : MonoBehaviour
         for (int i = 0; i < teams.Length; i++)
         {
             teams[i] = new List<TankAgent>();
-
+            visualized[i] = new HashSet<Vector3>();
         }
 
         resetArea();
@@ -121,13 +139,13 @@ public class TankArea : MonoBehaviour
 
         for (int i = 0; i < teams.Length; i++)
         {
-            if(!aliveTeams.Contains(i))
+            if (!aliveTeams.Contains(i))
                 aliveTeams.Add(i);
         }
 
         for (int i = 0; i < numberOfTeams; i++)
         {
-            teamNumbers[i] = (int)Academy.Instance.FloatProperties.GetPropertyWithDefault("team_" + i + "_number", defaultTeamNumbers[i]);
+            teamNumbers[i] = (int)Academy.Instance.EnvironmentParameters.GetWithDefault("team_" + i + "_number", defaultTeamNumbers[i]);
             aliveNumbers[i] = teamNumbers[i];
             totalAgents += teamNumbers[i];
         }
@@ -242,10 +260,11 @@ public class TankArea : MonoBehaviour
     public void tankDead(int teamId)
     {
         aliveNumbers[teamId]--;
+
+
     }
     private void Update()
     {
-
 
         for (int i = 0; i < aliveTeams.Count; i++)
         {
@@ -269,6 +288,32 @@ public class TankArea : MonoBehaviour
         {
             tie();
         }
+
+
+        foreach (int i in aliveTeams)
+        {
+            visualized[i].Clear();
+            
+
+            foreach (TankAgent tank in teams[i])
+            {
+                if (!tank.isDead())
+                {
+
+                    Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, sphereRadius);
+                    foreach (Collider collider in hitColliders)
+                    {
+                        if (collider.gameObject.tag == tank.gameObject.GetComponent<RayPerceptionSensorComponent3D>().DetectableTags[0])
+                        {
+                            visualized[i].Add(collider.gameObject.transform.localPosition);
+                        }
+                    }
+                }
+            }
+
+        }
+
+
 
     }
 

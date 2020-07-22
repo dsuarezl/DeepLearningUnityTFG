@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Tools/RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.sh</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,42 +44,37 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\AssemblyInfo.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\AgentAction.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\AgentInfo.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\AgentInfoActionPair.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\BrainParameters.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\Command.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\CustomResetParameters.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\DemonstrationMeta.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\EngineConfiguration.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\Header.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\Observation.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\SpaceType.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityInput.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityMessage.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityOutput.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityRlInitializationInput.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityRlInitializationOutput.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityRlInput.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityRlOutput.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityToExternal.cs" />
-     <Compile Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityToExternalGrpc.cs" />
-     <None Include="ml-agents-0.15.1\com.unity.ml-agents\Runtime\Grpc\Unity.ML-Agents.CommunicatorObjects.asmdef" />
+  <ItemGroup>     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\AssemblyInfo.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\AgentAction.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\AgentInfo.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\AgentInfoActionPair.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\BrainParameters.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\Capabilities.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\Command.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\CustomResetParameters.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\DemonstrationMeta.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\EngineConfiguration.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\Header.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\Observation.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\SpaceType.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityInput.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityMessage.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityOutput.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityRlInitializationInput.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityRlInitializationOutput.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityRlInput.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityRlOutput.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityToExternal.cs" />
+     <Compile Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\CommunicatorObjects\UnityToExternalGrpc.cs" />
+     <None Include="\media\daniel\Archivos\EscritorioLinux\ml-agents-release_4\com.unity.ml-agents\Runtime\Grpc\Unity.ML-Agents.CommunicatorObjects.asmdef" />
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <Reference Include="UnityEngine">
+ <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -260,6 +253,9 @@
  <Reference Include="UnityEngine.XRModule">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor">
+ <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.VR">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
  </Reference>
@@ -270,22 +266,22 @@
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Google.Protobuf">
- <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.barracuda@0.6.1-preview/Barracuda/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
+ <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.barracuda@1.0.1/Barracuda/Runtime/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Burst.Unsafe">
- <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.burst@1.1.1/Unity.Burst.Unsafe.dll</HintPath>
+ <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.burst@1.2.3/Unity.Burst.Unsafe.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Abstractions.TestingHelpers">
- <HintPath>/home/daniel/Escritorio/TFG/ml-agents-0.15.1/com.unity.ml-agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Abstractions">
- <HintPath>/home/daniel/Escritorio/TFG/ml-agents-0.15.1/com.unity.ml-agents/Plugins/System.IO.Abstractions.dll</HintPath>
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/System.IO.Abstractions.dll</HintPath>
  </Reference>
  <Reference Include="Grpc.Core">
- <HintPath>/home/daniel/Escritorio/TFG/ml-agents-0.15.1/com.unity.ml-agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
  </Reference>
  <Reference Include="System.Interactive.Async">
- <HintPath>/home/daniel/Escritorio/TFG/ml-agents-0.15.1/com.unity.ml-agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

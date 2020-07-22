@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 6109701213881034967}
   m_Layer: 0
   m_Name: Obstacle1
-  m_TagString: obstacle
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 5745532115602779978}
   m_Layer: 0
   m_Name: Obstacle2
-  m_TagString: obstacle
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -879,7 +879,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &570348302029786149
 Transform:
   m_ObjectHideFlags: 0
@@ -1354,13 +1354,14 @@ MonoBehaviour:
   - {fileID: 1614700076547614574}
   - {fileID: 4377285129810039850}
   numberOfTeams: 2
-  defaultTeamNumbers: 0300000003000000
+  defaultTeamNumbers: 0200000002000000
   tankPrefabs:
   - {fileID: 8585927859697795285, guid: 83fb2f257482b4ee0aefb47c0f5e4a70, type: 3}
   - {fileID: 3578891722675999857, guid: 6ed9e1c94e509b56e90a787a592d3a6a, type: 3}
   teamSpawns:
   - {fileID: 5343728909499313163}
   - {fileID: 8732758208882502555}
+  sphereRadius: 30
 --- !u!1 &7107348338096383258
 GameObject:
   m_ObjectHideFlags: 0

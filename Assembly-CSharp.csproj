@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Tools/RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.sh</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,16 +44,7 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-     <Compile Include="Assets\Scripts\ProjectileScript.cs" />
+  <ItemGroup>     <Compile Include="Assets\Scripts\ProjectileScript.cs" />
      <Compile Include="Assets\Scripts\TankAgent.cs" />
      <Compile Include="Assets\Scripts\TankArea.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -79,8 +68,8 @@
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
- <Reference Include="MacBLAS">
- <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/MacBLAS.dll</HintPath>
+ <Reference Include="Unity.Barracuda.MacBLAS">
+ <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Barracuda.MacBLAS.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Burst">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
@@ -88,8 +77,8 @@
  <Reference Include="Unity.VSCode.Editor">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
- <Reference Include="Barracuda-editor">
- <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Barracuda-editor.dll</HintPath>
+ <Reference Include="Unity.Barracuda.Editor">
+ <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Barracuda.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Burst.Editor">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
@@ -103,20 +92,20 @@
  <Reference Include="Unity.Timeline">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
- <Reference Include="Barracuda">
- <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Barracuda.dll</HintPath>
+ <Reference Include="Unity.Barracuda">
+ <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Barracuda.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
- <Reference Include="iOSBLAS">
- <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/iOSBLAS.dll</HintPath>
+ <Reference Include="Unity.Barracuda.iOSBLAS">
+ <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Barracuda.iOSBLAS.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
- <Reference Include="BurstBLAS">
- <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/BurstBLAS.dll</HintPath>
+ <Reference Include="Unity.Barracuda.BurstBLAS">
+ <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Barracuda.BurstBLAS.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Mathematics">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
@@ -129,6 +118,9 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>/home/daniel/Escritorio/TFG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine">
+ <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -307,23 +299,26 @@
  <Reference Include="UnityEngine.XRModule">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor">
+ <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+ </Reference>
  <Reference Include="Google.Protobuf">
- <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.barracuda@0.6.1-preview/Barracuda/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
+ <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.barracuda@1.0.1/Barracuda/Runtime/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Burst.Unsafe">
- <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.burst@1.1.1/Unity.Burst.Unsafe.dll</HintPath>
+ <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.burst@1.2.3/Unity.Burst.Unsafe.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Abstractions.TestingHelpers">
- <HintPath>/home/daniel/Escritorio/TFG/ml-agents-0.15.1/com.unity.ml-agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Abstractions">
- <HintPath>/home/daniel/Escritorio/TFG/ml-agents-0.15.1/com.unity.ml-agents/Plugins/System.IO.Abstractions.dll</HintPath>
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/System.IO.Abstractions.dll</HintPath>
  </Reference>
  <Reference Include="Grpc.Core">
- <HintPath>/home/daniel/Escritorio/TFG/ml-agents-0.15.1/com.unity.ml-agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
  </Reference>
  <Reference Include="System.Interactive.Async">
- <HintPath>/home/daniel/Escritorio/TFG/ml-agents-0.15.1/com.unity.ml-agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>/home/daniel/Unity/Hub/Editor/2019.2.9f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

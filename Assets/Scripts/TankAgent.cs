@@ -1,8 +1,8 @@
 ﻿﻿using UnityEngine;
 using System.Collections;
-using MLAgents;
-using MLAgents.Sensors;
-using MLAgents.SideChannels;
+using Unity.MLAgents;
+using Unity.MLAgents.Sensors;
+using Unity.MLAgents.SideChannels;
 using TMPro;
 
 
@@ -33,6 +33,10 @@ public class TankAgent : Agent
     public string deadTag;
 
 
+
+    public int sphereRadius = 10;
+
+
     public TextMeshPro healthText;
 
     public override void Initialize()
@@ -44,7 +48,6 @@ public class TankAgent : Agent
         shooting = false;
         myTransform = transform;
         this.aliveTag = this.gameObject.tag;
-
     }
 
 
@@ -194,48 +197,46 @@ public class TankAgent : Agent
              AddReward(-1f / maxStep);*/
     }
 
-    public override float[] Heuristic()
+    public override void Heuristic(float[] actionsOut)
     {
-        float forwardAction = 0f;
-        float turnAction = 0f;
-        float shootAction = 0f;
-        float angleAction = 0f;
-        float powerAction = 0f;
+
+        for (int i = 0; i < 5; i++)
+            actionsOut[i] = 0;
 
         //0 1 2
         if (Input.GetKey(KeyCode.W))
         {
             // move forward
-            forwardAction = 1f;
+            actionsOut[0] = 1f;
         }
-        if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
             // move forward
-            forwardAction = 2f;
+            actionsOut[0] = 2f;
         }
 
         //0 1 2
         if (Input.GetKey(KeyCode.A))
         {
             // turn left
-            turnAction = 1f;
+            actionsOut[1] = 1f;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             // turn right
-            turnAction = 2f;
+            actionsOut[1] = 2f;
         }
 
         //0 1 2
         if (Input.GetKey(KeyCode.Q))
         {
             // turn left
-            angleAction = 1f;
+            actionsOut[2] = 1f;
         }
         else if (Input.GetKey(KeyCode.E))
         {
             // turn right
-            angleAction = 2f;
+            actionsOut[2] = 2f;
         }
 
 
@@ -243,23 +244,21 @@ public class TankAgent : Agent
         if (Input.GetKey(KeyCode.Z))
         {
             // turn left
-            powerAction = 1f;
+            actionsOut[3] = 1f;
         }
         else if (Input.GetKey(KeyCode.C))
         {
             // turn right
-            powerAction = 2f;
+            actionsOut[3] = 2f;
         }
 
         //0 1
         if (Input.GetKey(KeyCode.L))
         {
-            shootAction = 1f;
+            actionsOut[4] = 1f;
         }
 
 
-        // Put the actions into an array and return
-        return new float[] { forwardAction, turnAction, angleAction, powerAction, shootAction };
     }
 
 
@@ -283,6 +282,7 @@ public class TankAgent : Agent
 
         clearProjectile();
         dead = false;
+        this.gameObject.GetComponent<DecisionRequester>().enabled = true;
 
         health = maxHealth;
         this.gameObject.tag = aliveTag;
@@ -292,27 +292,28 @@ public class TankAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
 
+        int enemies = 0;
+        for (int i = 0; i < area.numberOfTeams; i++)
+        {
+            if (i != team)
+                enemies += area.getTeamNumber(i);
+        }
 
-        //Whether the tank is dead ( 1 value)
-        sensor.AddObservation(dead);
 
-        //Number of agents alive in the same team
-       // sensor.AddObservation(area.getAliveInTeam(team));
+        //Health of the tank( 1 value)
+        sensor.AddObservation(health / maxHealth);
+
 
 
         if (dead)
         {
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5+2*enemies; i++)
                 sensor.AddObservation(-1000);
 
         }
         else
         {
-     
-
-            //Whether the tank is shooting ( 1 value)
-           // sensor.AddObservation(isShooting());
 
             //Shooting power (1 float = 1 value)
             sensor.AddObservation((power - minPower) / (maxPower - minPower));
@@ -322,29 +323,38 @@ public class TankAgent : Agent
 
             //Tank position relative to parent object X 1 value
 
-           /*float minX = -area.getSizeX() / 2;
+            float minX = -area.getSizeX() / 2;
             float maxX = area.getSizeX() / 2;
 
             float minZ = -area.getSizeZ() / 2;
             float maxZ = area.getSizeZ() / 2;
-
-          
 
             sensor.AddObservation((transform.localPosition.x - minX) / (maxX - minX));
 
             //Tank position relative to parent object Z 1 value
             sensor.AddObservation((transform.localPosition.z - minZ) / (maxZ - minZ));
 
-            // Distance to the target (1 float = 1 value)
-            //AddVectorObs(Vector3.Distance(target.transform.position, transform.position));
-
-            // Direction to target(1 Vector3 = 3 values)
-            // AddVectorObs((target.transform.position - transform.position).normalized);*/
-
-
             //Rotation y of the tank (1 float = 1 value)
             sensor.AddObservation(transform.rotation.y / 360.0f);
+
+            //Add position of visualized tanks on teams spherecast
+            foreach (Vector3 position in area.getVisualized(team))
+            {
+                sensor.AddObservation((position.x - minX) / (maxX - minX));
+
+
+                sensor.AddObservation((position.z - minZ) / (maxZ - minZ));
+            }
+
+            for (int i = 0; i < enemies - area.getVisualized(team).Count; i++)
+            {
+                sensor.AddObservation(-1000);
+
+
+                sensor.AddObservation(-1000);
+            }
         }
+
 
 
         // 1 + 1 + 1 + 1 + 1 + 1 = 6 total values
@@ -363,6 +373,7 @@ public class TankAgent : Agent
 
         if (health <= 0)
         {
+            this.gameObject.GetComponent<DecisionRequester>().enabled = false;
             dead = true;
             area.tankDead(team);
             clearProjectile();

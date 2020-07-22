@@ -27,11 +27,6 @@ PrefabInstance:
       propertyPath: targetTag
       value: blueTank
       objectReference: {fileID: 0}
-    - target: {fileID: 6714195508619568136, guid: f04bdcc6de26bb46987b4fb11809f31e,
-        type: 3}
-      propertyPath: TeamId
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -3037228461616864222, guid: f04bdcc6de26bb46987b4fb11809f31e,
         type: 3}
       propertyPath: m_SensorName

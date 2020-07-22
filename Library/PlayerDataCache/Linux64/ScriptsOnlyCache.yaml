@@ -4,13 +4,10 @@ ScriptsOnlyBuild:
     - ProjectileScript
     - TankAgent
     - TankArea
-    Unity.ML-Agents.Editor.dll:
-    - MLAgents.Editor.AgentEditor
-    - MLAgents.Editor.BehaviorParametersEditor
     Unity.ML-Agents.dll:
-    - MLAgents.DecisionRequester
-    - MLAgents.Policies.BehaviorParameters
-    - MLAgents.Sensors.RayPerceptionSensorComponent3D
+    - Unity.MLAgents.DecisionRequester
+    - Unity.MLAgents.Policies.BehaviorParameters
+    - Unity.MLAgents.Sensors.RayPerceptionSensorComponent3D
     Unity.TextMeshPro.dll:
     - TMPro.TMP_FontAsset
     - TMPro.TMP_Settings
@@ -61,27 +58,27 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 10060}
-    - Class: 114
       Script: {instanceID: 10072}
     - Class: 114
-      Script: {instanceID: 10536}
+      Script: {instanceID: 10082}
     - Class: 114
-      Script: {instanceID: 10576}
+      Script: {instanceID: 10562}
     - Class: 114
-      Script: {instanceID: 10778}
+      Script: {instanceID: 10606}
     - Class: 114
-      Script: {instanceID: 10844}
+      Script: {instanceID: 10826}
     - Class: 114
-      Script: {instanceID: 11296}
+      Script: {instanceID: 10892}
     - Class: 114
-      Script: {instanceID: 11310}
+      Script: {instanceID: 11380}
     - Class: 114
-      Script: {instanceID: 11428}
+      Script: {instanceID: 11394}
     - Class: 114
-      Script: {instanceID: 11840}
+      Script: {instanceID: 11520}
     - Class: 114
-      Script: {instanceID: 11966}
+      Script: {instanceID: 11956}
+    - Class: 114
+      Script: {instanceID: 12080}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -183,7 +180,7 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: d75e11d94ed772968b138b9092a2539c
+      Hash: da01953de157456d532d97da53b3f6a1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TankAgent
@@ -195,15 +192,15 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 55bc73f44b87ab1f3b34def051d3abe2
+      Hash: 6b7677c4aaa7665a0964ff549bbb12a3
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents
+    namespaceName: Unity.MLAgents
     className: DecisionRequester
   - hash:
       serializedVersion: 2
       Hash: a3ea236b81667ce963577b016d4aef95
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents.Sensors
+    namespaceName: Unity.MLAgents.Sensors
     className: RayPerceptionSensorComponent2D
   - hash:
       serializedVersion: 2
@@ -275,7 +272,7 @@ ScriptsOnlyBuild:
       serializedVersion: 2
       Hash: 5313aabfeb9a420655b4f15dc4aff040
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents.Sensors
+    namespaceName: Unity.MLAgents.Sensors
     className: RenderTextureSensorComponent
   - hash:
       serializedVersion: 2
@@ -321,9 +318,9 @@ ScriptsOnlyBuild:
     className: TMP_Asset
   - hash:
       serializedVersion: 2
-      Hash: b6bffb52799f353b1b52fde765e0b5a9
+      Hash: daab9926a3a56f97180afd52b09f5307
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents.Demonstrations
+    namespaceName: Unity.MLAgents.Demonstrations
     className: DemonstrationRecorder
   - hash:
       serializedVersion: 2
@@ -333,7 +330,7 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: ff3d2fbcb4b40d2eced3ce3d61405973
+      Hash: 053e54599f3584ab2e4e04d66a9df592
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TankArea
@@ -347,7 +344,7 @@ ScriptsOnlyBuild:
       serializedVersion: 2
       Hash: 36930db3116562932d730ec657bbfe20
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents.Sensors
+    namespaceName: Unity.MLAgents.Sensors
     className: RayPerceptionSensorComponent3D
   - hash:
       serializedVersion: 2
@@ -358,8 +355,8 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 550cd92f36d03903a502911efc2e95c7
-    assemblyName: Barracuda.dll
-    namespaceName: Barracuda
+    assemblyName: Unity.Barracuda.dll
+    namespaceName: Unity.Barracuda
     className: NNModel
   - hash:
       serializedVersion: 2
@@ -388,8 +385,8 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 422f48e4fe97392f35c9dde63be9e292
-    assemblyName: Barracuda.dll
-    namespaceName: Barracuda
+    assemblyName: Unity.Barracuda.dll
+    namespaceName: Unity.Barracuda
     className: NNModelData
   - hash:
       serializedVersion: 2
@@ -447,22 +444,22 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: 0f818fbc5554d67a3457c471854b373e
+      Hash: be01a014ffb2484e6cdfdca7c5af1eed
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents.Policies
+    namespaceName: Unity.MLAgents.Policies
     className: BehaviorParameters
   - hash:
       serializedVersion: 2
-      Hash: a3981da91315d9e286e39830a10d5ef3
+      Hash: 5d470960c5db2f9c229c37ff99d0996e
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents
+    namespaceName: Unity.MLAgents
     className: Agent
   - hash:
       serializedVersion: 2
-      Hash: ac1679b22c4b7a0ce52f85de9d79e69f
+      Hash: afd242f4d08fe7134b665c272625419c
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents.Demonstrations
-    className: Demonstration
+    namespaceName: Unity.MLAgents.Demonstrations
+    className: DemonstrationSummary
   - hash:
       serializedVersion: 2
       Hash: 3b760e6526e13f7504f59e210145899a
@@ -473,7 +470,7 @@ ScriptsOnlyBuild:
       serializedVersion: 2
       Hash: bc307d070edf4f5bf960c0d1696cce98
     assemblyName: Unity.ML-Agents.dll
-    namespaceName: MLAgents.Sensors
+    namespaceName: Unity.MLAgents.Sensors
     className: CameraSensorComponent
   - hash:
       serializedVersion: 2
