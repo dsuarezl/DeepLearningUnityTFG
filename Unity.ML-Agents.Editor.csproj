@@ -267,11 +267,11 @@
  <Reference Include="Unity.Burst.Unsafe">
  <HintPath>/home/daniel/Escritorio/TFG/Library/PackageCache/com.unity.burst@1.2.3/Unity.Burst.Unsafe.dll</HintPath>
  </Reference>
- <Reference Include="System.IO.Abstractions.TestingHelpers">
- <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
- </Reference>
  <Reference Include="System.IO.Abstractions">
  <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/System.IO.Abstractions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Abstractions.TestingHelpers">
+ <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
  </Reference>
  <Reference Include="Grpc.Core">
  <HintPath>/media/daniel/Archivos/EscritorioLinux/ml-agents-release_4/com.unity.ml-agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>

@@ -50,6 +50,8 @@ public class TankArea : MonoBehaviour
     //Radious of sphere cast
     public int sphereRadius = 30;
 
+    public GameObject obstacles;
+
     public int getAliveInTeam(int teamId)
     {
         return aliveNumbers[teamId];
@@ -136,6 +138,8 @@ public class TankArea : MonoBehaviour
 
         reset = 0;
         totalAgents = 0;
+
+        obstacles.SetActive(Academy.Instance.EnvironmentParameters.GetWithDefault("obstacles", (obstacles.activeSelf ? 1f : 0f)) == 1f  );
 
         for (int i = 0; i < teams.Length; i++)
         {
@@ -297,6 +301,9 @@ public class TankArea : MonoBehaviour
 
             foreach (TankAgent tank in this.teams[team])
             {
+                
+
+
                 if (!tank.isDead())
                 {
 
@@ -306,6 +313,7 @@ public class TankArea : MonoBehaviour
 
                         if (ro.HitTagIndex == 0)
                         {
+                            ro.HitGameObject.GetComponent<ParticleSystem>().Play();
                             visualized[team].Add(ro.HitGameObject.transform.localPosition);
                         }
 

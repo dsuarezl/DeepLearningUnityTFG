@@ -32,6 +32,7 @@ public class TankAgent : Agent
     private string aliveTag;
     public string deadTag;
 
+    public float dummyValue = 1f;
 
 
     public int sphereRadius = 10;
@@ -293,13 +294,13 @@ public class TankAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
 
-        int enemies = 0;
-        for (int i = 0; i < area.numberOfTeams; i++)
+        int enemies = 2;
+        /*   for (int i = 0; i < area.numberOfTeams; i++)
         {
             if (i != team)
                 enemies += area.getTeamNumber(i);
         }
-
+*/
 
         //Health of the tank( 1 value)
         sensor.AddObservation(health / maxHealth);
@@ -309,8 +310,8 @@ public class TankAgent : Agent
         if (dead)
         {
 
-            for (int i = 0; i < 5+2*enemies; i++)
-                sensor.AddObservation(-1000);
+            for (int i = 0; i < 4+2*enemies; i++)
+                sensor.AddObservation(dummyValue);
 
         }
         else
@@ -336,9 +337,19 @@ public class TankAgent : Agent
             sensor.AddObservation((transform.localPosition.z - minZ) / (maxZ - minZ));
 
             //Rotation y of the tank (1 float = 1 value)
-            sensor.AddObservation(transform.rotation.y / 360.0f);
+           // sensor.AddObservation(transform.rotation.y / 360.0f);
 
             //Add position of visualized tanks from other allies
+
+
+
+            //Add dummy observations(testing)
+            for(int i = 0; i < enemies*2; i++){
+                sensor.AddObservation(dummyValue);
+                
+            }
+
+/*
             foreach (Vector3 position in area.getVisualized(team))
             {
                 sensor.AddObservation((position.x - minX) / (maxX - minX));
@@ -349,11 +360,11 @@ public class TankAgent : Agent
 
             for (int i = 0; i < enemies - area.getVisualized(team).Count; i++)
             {
-                sensor.AddObservation(-1000);
+                sensor.AddObservation(dummyValue);
 
 
-                sensor.AddObservation(-1000);
-            }
+                sensor.AddObservation(dummyValue);
+            }*/
         }
 
     }

@@ -1,0 +1,70 @@
+behaviors:
+  TankLearning:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 2048
+      buffer_size: 20480
+      learning_rate: 1e-5
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: constant
+    network_settings:
+      normalize: false
+      hidden_units: 512
+      num_layers: 2
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    keep_checkpoints: 5
+    max_steps: 20000000
+    time_horizon: 1000
+    summary_freq: 10000
+    threaded: true
+    self_play:
+      save_steps: 50000
+      team_change: 200000
+      swap_steps: 2000
+      window: 10
+      play_against_latest_model_ratio: 0.5
+      initial_elo: 1200.0
+environment_parameters:
+  team_1_number:
+    curriculum:
+      - name: unocontrauno
+        completion_criteria:
+          measure: progress
+          behavior: TankLearning
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.3
+        value: 1        
+      - name: doscontrados
+        value: 2
+  team_0_number:
+    curriculum:
+      - name: unocontrauno
+        completion_criteria:
+          measure: progress
+          behavior: TankLearning
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.3
+        value: 1
+      - name: doscontrados
+        value: 2
+  obstacles:
+    curriculum:
+      - name: sinobstaculos
+        completion_criteria:
+          measure: progress
+          behavior: TankLearning
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.6
+        value: 0        
+      - name: conobstaculos
+        value: 1

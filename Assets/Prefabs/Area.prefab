@@ -923,7 +923,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5343728909499313163}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 0.01, z: 0}
+  m_LocalPosition: {x: -8, y: 0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2.7057}
   m_Children: []
   m_Father: {fileID: 5640737247498681564}
@@ -1354,7 +1354,7 @@ MonoBehaviour:
   - {fileID: 1614700076547614574}
   - {fileID: 4377285129810039850}
   numberOfTeams: 2
-  defaultTeamNumbers: 0100000001000000
+  defaultTeamNumbers: 0200000002000000
   tankPrefabs:
   - {fileID: 8585927859697795285, guid: 83fb2f257482b4ee0aefb47c0f5e4a70, type: 3}
   - {fileID: 3578891722675999857, guid: 6ed9e1c94e509b56e90a787a592d3a6a, type: 3}
@@ -1362,6 +1362,7 @@ MonoBehaviour:
   - {fileID: 5343728909499313163}
   - {fileID: 8732758208882502555}
   sphereRadius: 30
+  obstacles: {fileID: 4463482180370833944}
 --- !u!1 &7107348338096383258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,7 +1745,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8732758208882502555}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: 0.01, z: 0}
+  m_LocalPosition: {x: 8, y: 0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2.705703}
   m_Children: []
   m_Father: {fileID: 5640737247498681564}
