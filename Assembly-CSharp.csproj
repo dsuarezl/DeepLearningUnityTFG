@@ -46,6 +46,8 @@
   </PropertyGroup>
   <ItemGroup>     <Compile Include="Assets\Scripts\ProjectileScript.cs" />
      <Compile Include="Assets\Scripts\TankAgent.cs" />
+     <Compile Include="Assets\Scripts\TankAgent1v1.cs" />
+     <Compile Include="Assets\Scripts\TankAgent2v2.cs" />
      <Compile Include="Assets\Scripts\TankArea.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
@@ -667,13 +669,13 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.ML-Agents.Editor.csproj">
-      <Project>{73E605B2-C3BB-D757-EDB1-D8C144AB7799}</Project>
-      <Name>Unity.ML-Agents.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.ML-Agents.CommunicatorObjects.csproj">
       <Project>{4BB198BC-5D6D-B5CF-10DD-52D2E914F2EC}</Project>
       <Name>Unity.ML-Agents.CommunicatorObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.ML-Agents.Editor.csproj">
+      <Project>{73E605B2-C3BB-D757-EDB1-D8C144AB7799}</Project>
+      <Name>Unity.ML-Agents.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.ML-Agents.csproj">
       <Project>{D2DEC718-D0DE-44A7-E64E-181B065D95EB}</Project>

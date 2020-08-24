@@ -2,12 +2,14 @@
 using System.Collections;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
-using Unity.MLAgents.SideChannels;
+
 using TMPro;
 
 
 public class TankAgent : Agent
 {
+
+
     public int team;
     public float angle = 45.0f;
     public float power = 10.0f;
@@ -15,28 +17,25 @@ public class TankAgent : Agent
     public float gravity = 15f;
     public GameObject spawnPoint;
     public GameObject ProjectilePrefab;
-    private Transform myTransform;
+    protected Transform myTransform;
     public float moveSpeed = 5f;
     public float turnSpeed = 180f;
-    private Rigidbody rb;
-    private GameObject projectileObject;
-    private bool dead;
-    private bool shooting;
-    private int health;
-    public const int maxHealth = 30;
+    protected Rigidbody rb;
+    protected GameObject projectileObject;
+    protected bool dead;
+    protected bool shooting;
+    protected int health;
+    public int maxHealth = 30;
     public const float maxPower = 300;
     public const float minPower = 1;
     public const float minAngle = 1;
     public const float maxAngle = 80;
     public TankArea area;
-    private string aliveTag;
-    public string deadTag;
+
+    protected  float initialPower;
+    protected float initialAngle;
 
     public float dummyValue = 1f;
-
-
-    public int sphereRadius = 10;
-
 
     public TextMeshPro healthText;
 
@@ -48,7 +47,8 @@ public class TankAgent : Agent
         dead = false;
         shooting = false;
         myTransform = transform;
-        this.aliveTag = this.gameObject.tag;
+        initialAngle = angle;
+        initialPower = power;
     }
 
 
@@ -191,11 +191,6 @@ public class TankAgent : Agent
 
         }
 
-
-
-        // Apply a tiny negative reward every step to encourage action if not shooting
-        /* if (!shooting)
-             AddReward(-1f / maxStep);*/
     }
 
     public override void Heuristic(float[] actionsOut)
@@ -265,12 +260,12 @@ public class TankAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        if(area != null)
+        if (area != null)
             area.requestReset();
     }
 
 
-    private void clearProjectile()
+    protected void clearProjectile()
     {
         if (projectileObject)
         {
@@ -283,18 +278,22 @@ public class TankAgent : Agent
     {
 
         clearProjectile();
-        dead = false;
-        this.gameObject.GetComponent<DecisionRequester>().enabled = true;
 
+        angle = initialAngle;
+        power = initialPower;
         health = maxHealth;
-        this.gameObject.tag = aliveTag;
         healthText.SetText(health.ToString());
+        this.SetReward(0);
+        this.gameObject.SetActive(true);
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
 
-        int enemies = 2;
+
+
+        // int enemies = 2;
         /*   for (int i = 0; i < area.numberOfTeams; i++)
         {
             if (i != team)
@@ -307,10 +306,12 @@ public class TankAgent : Agent
 
 
 
-        if (dead)
+        if (dead || area == null)
         {
 
-            for (int i = 0; i < 4+2*enemies; i++)
+            //for (int i = 0; i < 4 + 2 * enemies; i++)
+
+            for (int i = 0; i < 3; i++)
                 sensor.AddObservation(dummyValue);
 
         }
@@ -325,71 +326,80 @@ public class TankAgent : Agent
 
             //Tank position relative to parent object X 1 value
 
-            float minX = -area.getSizeX() / 2;
-            float maxX = area.getSizeX() / 2;
 
-            float minZ = -area.getSizeZ() / 2;
-            float maxZ = area.getSizeZ() / 2;
+            /*
+                            float minX = -area.getSizeX() / 2;
+                            float maxX = area.getSizeX() / 2;
 
-            sensor.AddObservation((transform.localPosition.x - minX) / (maxX - minX));
+                            float minZ = -area.getSizeZ() / 2;
+                            float maxZ = area.getSizeZ() / 2;
 
-            //Tank position relative to parent object Z 1 value
-            sensor.AddObservation((transform.localPosition.z - minZ) / (maxZ - minZ));
+
+                            sensor.AddObservation((transform.localPosition.x - minX) / (maxX - minX));
+
+                            //Tank position relative to parent object Z 1 value
+                            sensor.AddObservation((transform.localPosition.z - minZ) / (maxZ - minZ));*/
 
             //Rotation y of the tank (1 float = 1 value)
-           // sensor.AddObservation(transform.rotation.y / 360.0f);
+            sensor.AddObservation(transform.rotation.y / 360.0f);
 
             //Add position of visualized tanks from other allies
 
 
 
-            //Add dummy observations(testing)
-            for(int i = 0; i < enemies*2; i++){
-                sensor.AddObservation(dummyValue);
-                
-            }
-
-/*
-            foreach (Vector3 position in area.getVisualized(team))
-            {
-                sensor.AddObservation((position.x - minX) / (maxX - minX));
+            /*   foreach (Vector3 position in area.getVisualized(team))
+               {
+                   sensor.AddObservation((position.x - minX) / (maxX - minX));
 
 
-                sensor.AddObservation((position.z - minZ) / (maxZ - minZ));
-            }
+                   sensor.AddObservation((position.z - minZ) / (maxZ - minZ));
+               }
 
-            for (int i = 0; i < enemies - area.getVisualized(team).Count; i++)
-            {
-                sensor.AddObservation(dummyValue);
+               for (int i = 0; i < enemies - area.getVisualized(team).Count; i++)
+               {
+                   sensor.AddObservation(dummyValue);
 
 
-                sensor.AddObservation(dummyValue);
-            }*/
+                   sensor.AddObservation(dummyValue);
+               }*/
         }
+
 
     }
 
     public bool isDead()
     {
-        return dead;
+        return this.gameObject.activeSelf;
     }
 
 
     public void takeDamage()
     {
+
+
         health -= 10;
         healthText.SetText(health.ToString());
 
+        
+
         if (health <= 0)
         {
+
+       
             this.gameObject.GetComponent<DecisionRequester>().enabled = false;
-            dead = true;
-            area.tankDead(team);
-            clearProjectile();
-            this.gameObject.tag = deadTag;
+            
+            
             healthText.SetText("Dead");
 
+
+            clearProjectile();
+
+            area.tankDead(team);
+            this.gameObject.SetActive(false);
+
+
         }
+
 
     }
 

@@ -4,6 +4,9 @@ ScriptsOnlyBuild:
     - ProjectileScript
     - TankAgent
     - TankArea
+    Unity.Barracuda.dll:
+    - Unity.Barracuda.NNModel
+    - Unity.Barracuda.NNModelData
     Unity.ML-Agents.dll:
     - Unity.MLAgents.DecisionRequester
     - Unity.MLAgents.Policies.BehaviorParameters
@@ -18,7 +21,7 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
   sceneClasses:
-    Assets/Scenes/SampleScene.unity:
+    Assets/Scenes/EquiposScene.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -49,8 +52,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
-    - Class: 89
-      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
@@ -66,19 +67,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10614}
     - Class: 114
-      Script: {instanceID: 10838}
+      Script: {instanceID: 10840}
     - Class: 114
-      Script: {instanceID: 10904}
+      Script: {instanceID: 10906}
     - Class: 114
-      Script: {instanceID: 11394}
+      Script: {instanceID: 11396}
     - Class: 114
-      Script: {instanceID: 11408}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11536}
+      Script: {instanceID: 11538}
     - Class: 114
-      Script: {instanceID: 11978}
+      Script: {instanceID: 11980}
     - Class: 114
-      Script: {instanceID: 12106}
+      Script: {instanceID: 12108}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -94,8 +95,6 @@ ScriptsOnlyBuild:
     - Class: 222
       Script: {instanceID: 0}
     - Class: 224
-      Script: {instanceID: 0}
-    - Class: 258
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -184,7 +183,7 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: 58a575cbcfae9d95398d77c6cc68d2c1
+      Hash: 6fcbb7577c45bfcbef14c7e5d3130780
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TankAgent
@@ -314,6 +313,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ProjectileScript
+  - hash:
+      serializedVersion: 2
+      Hash: 6fcbb7577c45bfcbef14c7e5d3130780
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TankAgent2v2
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -596,7 +601,13 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 6fcbb7577c45bfcbef14c7e5d3130780
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TankAgent1v1
   platform: 24
   scenePathNames:
-  - Assets/Scenes/SampleScene.unity
+  - Assets/Scenes/EquiposScene.unity
   playerPath: /home/daniel/Escritorio/TFG/tanks.x86_64

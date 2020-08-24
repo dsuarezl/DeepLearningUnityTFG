@@ -12,6 +12,9 @@ public class TankArea : MonoBehaviour
     private Vector3 min;
     private Vector3 max;
 
+
+    
+
     public TextMeshPro[] aliveText;
 
     //Number of teams
@@ -139,7 +142,7 @@ public class TankArea : MonoBehaviour
         reset = 0;
         totalAgents = 0;
 
-        obstacles.SetActive(Academy.Instance.EnvironmentParameters.GetWithDefault("obstacles", (obstacles.activeSelf ? 1f : 0f)) == 1f  );
+        obstacles.SetActive(Academy.Instance.EnvironmentParameters.GetWithDefault("obstacles", (obstacles.activeSelf ? 1f : 0f)) == 1f);
 
         for (int i = 0; i < teams.Length; i++)
         {
@@ -152,9 +155,8 @@ public class TankArea : MonoBehaviour
             teamNumbers[i] = (int)Academy.Instance.EnvironmentParameters.GetWithDefault("team_" + i + "_number", defaultTeamNumbers[i]);
             aliveNumbers[i] = teamNumbers[i];
             totalAgents += teamNumbers[i];
+            aliveText[i].text = teamNumbers[i].ToString();
         }
-
-
 
 
         for (int i = 0; i < numberOfTeams; i++)
@@ -169,6 +171,8 @@ public class TankArea : MonoBehaviour
             }
 
         }
+
+
 
     }
 
@@ -196,8 +200,12 @@ public class TankArea : MonoBehaviour
             {
                 foreach (TankAgent tank in team)
                 {
-                    tank.AddReward(1);
+                    tank.SetReward(1);
+                    Debug.Log("Winner is: " + tank.team + "(" + tank.GetCumulativeReward() + ")");
                     tank.EndEpisode();
+                    
+                    
+
 
                 }
             }
@@ -205,9 +213,11 @@ public class TankArea : MonoBehaviour
             {
                 foreach (TankAgent tank in team)
                 {
-                    tank.AddReward(-1);
+                    tank.SetReward(-1);
+                    Debug.Log("Loser is: " + tank.team + "(" + tank.GetCumulativeReward() + ")");
                     tank.EndEpisode();
-
+                    
+                    
                 }
 
             }
@@ -265,24 +275,20 @@ public class TankArea : MonoBehaviour
     {
         aliveNumbers[teamId]--;
 
+        aliveText[teamId].text = aliveNumbers[teamId].ToString();
 
-    }
-    private void Update()
-    {
-
-        for (int i = 0; i < aliveTeams.Count; i++)
+        if (aliveNumbers[teamId] <= 0)
         {
-            int id = aliveTeams[i];
-
-            aliveText[id].SetText(aliveNumbers[id].ToString());
-
-            if (aliveNumbers[id] <= 0)
-            {
-                aliveTeams.Remove(id);
-                i--;
-            }
+            aliveTeams.Remove(teamId);
         }
 
+
+    
+    }
+
+
+
+    private void FixedUpdate(){
         if (aliveTeams.Count == 1)
         {
             teamWins(teams[aliveTeams[0]]);
@@ -292,16 +298,21 @@ public class TankArea : MonoBehaviour
         {
             tie();
         }
+    }
+    private void Update()
+    {
+
+        
 
 
-        foreach (int team in aliveTeams)
+     /*  foreach (int team in aliveTeams)
         {
             visualized[team].Clear();
 
 
             foreach (TankAgent tank in this.teams[team])
             {
-                
+
 
 
                 if (!tank.isDead())
@@ -313,7 +324,7 @@ public class TankArea : MonoBehaviour
 
                         if (ro.HitTagIndex == 0)
                         {
-                            ro.HitGameObject.GetComponent<ParticleSystem>().Play();
+                           // ro.HitGameObject.GetComponent<ParticleSystem>().Play();
                             visualized[team].Add(ro.HitGameObject.transform.localPosition);
                         }
 
@@ -324,7 +335,7 @@ public class TankArea : MonoBehaviour
 
 
             }
-        }
+        }*/
     }
 
     public Vector3 randomPosition(Renderer spawn)

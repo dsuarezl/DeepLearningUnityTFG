@@ -12,11 +12,18 @@ public class ProjectileScript : MonoBehaviour
         foreach(string tag in tankTag){
              if(col.gameObject.tag == tag){
                   col.gameObject.GetComponent<TankAgent>().takeDamage();
+                  
              }
         }
 
         Destroy(this.gameObject);
+
         
+    }
+
+    private   void OnCollisionEnter(Collision collision){
+
+        Destroy(this.gameObject);
     }
 
 }

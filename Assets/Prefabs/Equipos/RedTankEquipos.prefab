@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &975339985750248362
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9093528391160794406, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_Name
+      value: RedTankEquipos
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093528391160794406, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_TagString
+      value: redTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075049815698272823, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9104280964713165514, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 463052f3f7389124f9e7b34b0b931d0d, type: 2}
+    - target: {fileID: 6756845174707060421, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6138730719455608559, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: redTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 6138730719455608559, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: blueTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 8938735614295654641, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 463052f3f7389124f9e7b34b0b931d0d, type: 2}
+    - target: {fileID: 7233608513307038633, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979830577222123775, guid: 93d58d9a49261dc8686c274f3942d8ed,
+        type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 93d58d9a49261dc8686c274f3942d8ed, type: 3}
