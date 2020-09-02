@@ -1,0 +1,6 @@
+model_checkpoint_path: "TankLearning-10000466.ckpt"
+all_model_checkpoint_paths: "TankLearning-8499973.ckpt"
+all_model_checkpoint_paths: "TankLearning-8999962.ckpt"
+all_model_checkpoint_paths: "TankLearning-9499979.ckpt"
+all_model_checkpoint_paths: "TankLearning-9999967.ckpt"
+all_model_checkpoint_paths: "TankLearning-10000466.ckpt"

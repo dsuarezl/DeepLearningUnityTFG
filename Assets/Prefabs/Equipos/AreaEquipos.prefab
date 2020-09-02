@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 7107348339125402681, guid: 7cd852774ab3150ec8fb310aca46967b,
         type: 3}
       propertyPath: m_Name
-      value: Area2v2
+      value: AreaEquipos
       objectReference: {fileID: 0}
     - target: {fileID: 7107348339125402680, guid: 7cd852774ab3150ec8fb310aca46967b,
         type: 3}
@@ -89,5 +89,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7149208416097979221, guid: 195396a0114f982d5bdbac215fc72a81,
         type: 3}
+    - target: {fileID: 1069010145248450137, guid: 7cd852774ab3150ec8fb310aca46967b,
+        type: 3}
+      propertyPath: defaultTeamNumbers.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069010145248450137, guid: 7cd852774ab3150ec8fb310aca46967b,
+        type: 3}
+      propertyPath: defaultTeamNumbers.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cd852774ab3150ec8fb310aca46967b, type: 3}

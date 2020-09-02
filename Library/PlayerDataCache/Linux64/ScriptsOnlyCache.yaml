@@ -19,7 +19,6 @@ ScriptsOnlyBuild:
     - TMPro.TextMeshPro
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
-    - UnityEditor.TestTools.TestRunner.TestListCacheData
   sceneClasses:
     Assets/Scenes/EquiposScene.unity:
     - Class: 1
@@ -59,27 +58,31 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 10074}
+      Script: {instanceID: 10092}
     - Class: 114
-      Script: {instanceID: 10084}
+      Script: {instanceID: 10102}
     - Class: 114
-      Script: {instanceID: 10568}
+      Script: {instanceID: 10604}
     - Class: 114
-      Script: {instanceID: 10614}
+      Script: {instanceID: 10650}
     - Class: 114
-      Script: {instanceID: 10840}
+      Script: {instanceID: 10870}
     - Class: 114
-      Script: {instanceID: 10906}
+      Script: {instanceID: 10940}
     - Class: 114
-      Script: {instanceID: 11396}
+      Script: {instanceID: 10992}
     - Class: 114
-      Script: {instanceID: 11410}
+      Script: {instanceID: 11174}
     - Class: 114
-      Script: {instanceID: 11538}
+      Script: {instanceID: 11432}
     - Class: 114
-      Script: {instanceID: 11980}
+      Script: {instanceID: 11446}
     - Class: 114
-      Script: {instanceID: 12108}
+      Script: {instanceID: 11576}
+    - Class: 114
+      Script: {instanceID: 12024}
+    - Class: 114
+      Script: {instanceID: 12156}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -309,16 +312,10 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 88958df77de533b28300f17a2494696f
+      Hash: c27844fd04f9755c63f588c4b3fe10ae
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ProjectileScript
-  - hash:
-      serializedVersion: 2
-      Hash: 6fcbb7577c45bfcbef14c7e5d3130780
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TankAgent2v2
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -403,6 +400,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: VerticalLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 6d9bbfb1b52fe5c318634b14a85ab0ec
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TankAgentComunicacion
   - hash:
       serializedVersion: 2
       Hash: 783f593b9380cf72d0f7ebfd4a0d4bcd
@@ -567,6 +570,12 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
+      Hash: 18de085fcb4674127d74877b36a5bb3c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TankAreaComunicacion
+  - hash:
+      serializedVersion: 2
       Hash: 748dd2a2a28da4e618912da5ac45684b
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -601,12 +610,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 6fcbb7577c45bfcbef14c7e5d3130780
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TankAgent1v1
   platform: 24
   scenePathNames:
   - Assets/Scenes/EquiposScene.unity

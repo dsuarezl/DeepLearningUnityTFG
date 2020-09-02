@@ -1,0 +1,56 @@
+{
+    "team_1_number": {
+        "lesson_num": 0
+    },
+    "team_0_number": {
+        "lesson_num": 0
+    },
+    "obstacles": {
+        "lesson_num": 0
+    },
+    "TankLearning": {
+        "checkpoints": [
+            {
+                "steps": 23499887,
+                "file_path": "results/comunicacionFinal3/TankLearning/TankLearning-23499887.nn",
+                "reward": 0.450000012293458,
+                "creation_time": 1598920338.551799
+            },
+            {
+                "steps": 23999926,
+                "file_path": "results/comunicacionFinal3/TankLearning/TankLearning-23999926.nn",
+                "reward": 0.331506853642529,
+                "creation_time": 1598920711.6023717
+            },
+            {
+                "steps": 24499980,
+                "file_path": "results/comunicacionFinal3/TankLearning/TankLearning-24499980.nn",
+                "reward": 0.16455696296842792,
+                "creation_time": 1598921084.1484962
+            },
+            {
+                "steps": 24999931,
+                "file_path": "results/comunicacionFinal3/TankLearning/TankLearning-24999931.nn",
+                "reward": 0.3358490576721587,
+                "creation_time": 1598921453.1083906
+            },
+            {
+                "steps": 25000278,
+                "file_path": "results/comunicacionFinal3/TankLearning/TankLearning-25000278.nn",
+                "reward": 0.3272727283564481,
+                "creation_time": 1598921453.7698576
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 25000278,
+            "file_path": "results/comunicacionFinal3/TankLearning.nn",
+            "reward": 0.3272727283564481,
+            "creation_time": 1598921453.7698576
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.1.0",
+        "mlagents_version": "0.19.0",
+        "tensorflow_version": "2.3.0"
+    }
+}

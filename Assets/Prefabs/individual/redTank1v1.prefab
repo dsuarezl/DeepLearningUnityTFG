@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5419680710549613787
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9140631839589963755, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_Name
+      value: redTank1v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140631839589963755, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_TagString
+      value: redTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835031038543067306, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835031038543067306, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: targetTag
+      value: blueTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 6714195508619568136, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3037228461616864222, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_SensorName
+      value: RedRayPerceptionSensor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117692424445520122, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128893837331605511, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 463052f3f7389124f9e7b34b0b931d0d, type: 2}
+    - target: {fileID: 8871148756136261387, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150684342600418873, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7244690090844965220, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999453678444927548, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 463052f3f7389124f9e7b34b0b931d0d, type: 2}
+    - target: {fileID: 6713104751781234307, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742619996347590293, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950738452584274482, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186143575237911586, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: redTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186143575237911586, guid: f04bdcc6de26bb46987b4fb11809f31e,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: blueTank
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f04bdcc6de26bb46987b4fb11809f31e, type: 3}

@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EquiposScene.unity
     guid: a320e5b909e2b1330a1afbee69374a3c
+  - enabled: 0
+    path: Assets/Scenes/ObstaculosScene.unity
+    guid: ebda0170c68632866ab27deaffc8439e
+  - enabled: 0
+    path: Assets/Scenes/ComunicacionScene.unity
+    guid: 9d6e0ce6e88dea3cc8a1b21775537c50
+  - enabled: 0
+    path: Assets/Scenes/1v1Scene.unity
+    guid: 59a89aedf5cdfae8bb26fc689f808d8e
   m_configObjects: {}

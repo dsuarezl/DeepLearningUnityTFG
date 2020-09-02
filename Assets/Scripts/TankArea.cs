@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Unity.MLAgents;
-using Unity.MLAgents.Sensors;
+
 using TMPro;
 using System.Collections.Generic;
 
@@ -9,8 +8,8 @@ using System.Collections.Generic;
 public class TankArea : MonoBehaviour
 {
     public float borderSize;
-    private Vector3 min;
-    private Vector3 max;
+    protected Vector3 min;
+    protected Vector3 max;
 
 
     
@@ -21,16 +20,16 @@ public class TankArea : MonoBehaviour
     public int numberOfTeams;
 
     //Number of tanks alive in a team
-    private int[] aliveNumbers;
+    protected int[] aliveNumbers;
 
     //Default team size
     public int[] defaultTeamNumbers;
 
     //Efective team size
-    private int[] teamNumbers;
+    protected int[] teamNumbers;
 
     //Ids of alive teams
-    private List<int> aliveTeams;
+    protected List<int> aliveTeams;
 
     //Prefabs of the team tanks
     public TankAgent[] tankPrefabs;
@@ -39,16 +38,16 @@ public class TankArea : MonoBehaviour
     public GameObject[] teamSpawns;
 
     //Array of teams
-    private List<TankAgent>[] teams;
+    protected List<TankAgent>[] teams;
 
     //Number of agents who have requested the reset of the area
-    private int reset;
+    protected int reset;
 
     //total number of agents in the area
-    private int totalAgents;
+    protected int totalAgents;
 
     //sets of tanks visualized
-    private HashSet<Vector3>[] visualized;
+    protected HashSet<Vector3>[] visualized;
 
     //Radious of sphere cast
     public int sphereRadius = 30;
@@ -79,6 +78,9 @@ public class TankArea : MonoBehaviour
         return visualized[team];
     }
 
+    public GameObject winsCounter;
+
+
 
 
     public void Start()
@@ -102,6 +104,9 @@ public class TankArea : MonoBehaviour
             visualized[i] = new HashSet<Vector3>();
         }
 
+  
+
+
         resetArea();
     }
 
@@ -116,6 +121,8 @@ public class TankArea : MonoBehaviour
 
             if (team.Count < teamNumber)
             {
+
+                
                 while (team.Count < teamNumber && count < 30)
                 {
                     TankAgent tank = Instantiate(prefab);
@@ -136,6 +143,7 @@ public class TankArea : MonoBehaviour
         }
 
     }
+
     public void resetArea()
     {
 
@@ -198,10 +206,15 @@ public class TankArea : MonoBehaviour
         {
             if (team == teamWinner)
             {
+
+                winsCounter.GetComponent<counterWins2>().updateWins(team[0].team);
+                
                 foreach (TankAgent tank in team)
                 {
-                    tank.SetReward(1);
-                    Debug.Log("Winner is: " + tank.team + "(" + tank.GetCumulativeReward() + ")");
+
+                    
+ 
+                    tank.AddReward(1);
                     tank.EndEpisode();
                     
                     
@@ -213,15 +226,16 @@ public class TankArea : MonoBehaviour
             {
                 foreach (TankAgent tank in team)
                 {
+                    tank.gameObject.SetActive(true);
                     tank.SetReward(-1);
-                    Debug.Log("Loser is: " + tank.team + "(" + tank.GetCumulativeReward() + ")");
                     tank.EndEpisode();
-                    
-                    
+                   
                 }
 
             }
         }
+
+
 
     }
 
@@ -229,7 +243,7 @@ public class TankArea : MonoBehaviour
     {
         reset++;
 
-        Debug.Log(reset + " /" + totalAgents);
+        //Debug.Log(reset + " /" + totalAgents);
         if (reset >= totalAgents)
         {
             resetArea();
@@ -288,7 +302,7 @@ public class TankArea : MonoBehaviour
 
 
 
-    private void FixedUpdate(){
+    protected void FixedUpdate(){
         if (aliveTeams.Count == 1)
         {
             teamWins(teams[aliveTeams[0]]);
@@ -298,44 +312,6 @@ public class TankArea : MonoBehaviour
         {
             tie();
         }
-    }
-    private void Update()
-    {
-
-        
-
-
-     /*  foreach (int team in aliveTeams)
-        {
-            visualized[team].Clear();
-
-
-            foreach (TankAgent tank in this.teams[team])
-            {
-
-
-
-                if (!tank.isDead())
-                {
-
-                    foreach (RayPerceptionOutput.RayOutput ro in RayPerceptionSensor.Perceive(tank.gameObject.GetComponent<RayPerceptionSensorComponent3D>().GetRayPerceptionInput()).RayOutputs)
-                    {
-
-
-                        if (ro.HitTagIndex == 0)
-                        {
-                           // ro.HitGameObject.GetComponent<ParticleSystem>().Play();
-                            visualized[team].Add(ro.HitGameObject.transform.localPosition);
-                        }
-
-                    }
-
-                }
-
-
-
-            }
-        }*/
     }
 
     public Vector3 randomPosition(Renderer spawn)

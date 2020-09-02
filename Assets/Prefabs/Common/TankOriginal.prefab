@@ -149,7 +149,7 @@ MonoBehaviour:
     VectorActionSize: 0300000003000000030000000300000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: aa406081f9d6492f6a3f5d986e826bf4, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: TankLearning
@@ -172,7 +172,6 @@ MonoBehaviour:
   m_DetectableTags:
   - blueTank
   - redTank
-  - deadTank
   - wall
   m_RaysPerDirection: 3
   m_MaxRayDegrees: 40

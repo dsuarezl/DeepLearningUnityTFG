@@ -87,10 +87,12 @@ public class TankAgent : Agent
 
 
         projectileObject = Instantiate(ProjectilePrefab) as GameObject;
+        
 
         Transform projectileTransform = projectileObject.GetComponent<Transform>();
 
         ProjectileScript projectileScript = projectileObject.GetComponent<ProjectileScript>();
+        projectileScript.setTank(this);
 
         projectileTransform.position = spawnPoint.transform.position;
 
@@ -293,14 +295,6 @@ public class TankAgent : Agent
 
 
 
-        // int enemies = 2;
-        /*   for (int i = 0; i < area.numberOfTeams; i++)
-        {
-            if (i != team)
-                enemies += area.getTeamNumber(i);
-        }
-*/
-
         //Health of the tank( 1 value)
         sensor.AddObservation(health / maxHealth);
 
@@ -341,7 +335,8 @@ public class TankAgent : Agent
                             sensor.AddObservation((transform.localPosition.z - minZ) / (maxZ - minZ));*/
 
             //Rotation y of the tank (1 float = 1 value)
-            sensor.AddObservation(transform.rotation.y / 360.0f);
+            //sensor.AddObservation(transform.rotation.y / 360.0f);
+            sensor.AddObservation(shooting);
 
             //Add position of visualized tanks from other allies
 
@@ -385,8 +380,6 @@ public class TankAgent : Agent
         if (health <= 0)
         {
 
-       
-            this.gameObject.GetComponent<DecisionRequester>().enabled = false;
             
             
             healthText.SetText("Dead");
@@ -395,6 +388,7 @@ public class TankAgent : Agent
             clearProjectile();
 
             area.tankDead(team);
+            
             this.gameObject.SetActive(false);
 
 
